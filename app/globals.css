@@ -23,3 +23,9 @@
     text-wrap: balance;
   }
 }
+
+
+.login-main{
+  background-image:radial-gradient(66.55% 66.5% at 50% 0%, #EFF6FF 0%, rgba(219, 234, 254, 0.00) 100%);
+
+}

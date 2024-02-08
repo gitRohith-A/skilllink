@@ -1,24 +1,35 @@
 import Image from 'next/image'
 import React from 'react'
+import { FaRegUserCircle } from "react-icons/fa";
 
 function page() {
+
   return (
-    <div className="bg-black min-h-screen  justify-center grid content-center">
+    <div className=" login-main bg-black min-h-screen  justify-center grid content-center">
       <div className=" rounded-lg bg-white flex justify-center m-5  align-middle">
 
         <div className="justify-center  flex-col m-5 w-96 grid">
           <p className='text-xl font-bold  text-black p-5  '>
             Welcom to SkillLink
           </p>
-          <button className='text-sm p-1 font-light   bg-blue-600 text-white rounded-lg my-2'>
-            User          </button>
-          <button className='text-sm p-1 font-light   bg-blue-600 text-white rounded-lg my-2'>
-            Enterprice
+          <button className='text-sm p-2 font-light    bg-blue-600 text-white rounded-lg my-2  flex justify-center'>
+            <div className="flex align-middle space-x-2">
+              <div className='mt-.5 pl-2'   >
+                <FaRegUserCircle size={20} />
+              </div>
+              <p className='text-xl pr-2'>User</p>
+            </div>
           </button>
+          <button className='text-sm p-2 font-light    bg-blue-600 text-white rounded-lg my-2  flex justify-center'>
+            <div className="flex align-middle space-x-2">
+
+              <p className='text-xl pr-2'>Enterprise</p>
+            </div>
+          </button>
+
+
         </div>
       </div>
-
-
     </div>
   )
 }
