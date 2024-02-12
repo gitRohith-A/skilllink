@@ -1,16 +1,20 @@
-// Import the express in typescript file
+// Import required modules and dependencies
 import express from 'express';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import path from 'path';
-
+import bodyParser from 'body-parser';
+import { graphqlHTTP } from 'express-graphql';
 import connectToMongo from './db';
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import UserSchema from './graphql/schema/UserSchema';
 
+const cors = require('cors');
+// Load environment variables from .env file
 dotenv.config();
 
-connectToMongo()
-// Initialize the express engine
+// Connect to MongoDB
+connectToMongo();
+
+// Initialize the express app
 const app: express.Application = express();
 
 // Allow Public to be accessed since declared as static
@@ -19,12 +23,12 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
-dotenv.config();
 
+// Set up GraphQL route
+app.use('/users', graphqlHTTP({ schema: UserSchema, graphiql: true }));
 
-// Routers for the pages
-app.use('/auth', require('./Router/Authorization.controller'));
-
-app.listen(process.env.PORT, () => {
-    console.log(`Server Started on Port ${process.env.PORT}`);
+// Start the server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
