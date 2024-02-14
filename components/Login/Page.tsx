@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React from 'react'
 import { FaRegUserCircle } from "react-icons/fa";
 
@@ -13,8 +12,8 @@ function page() {
             Welcom to SkillLink
           </p>
           <button className='text-sm p-2 font-light bg-blue-600 text-white rounded-lg my-2  flex justify-center hover:bg-blue-500'>
-            <div className="flex align-middle space-x-2">
-              <div className='mt-.5 pl-2'   >
+            <div className="flex align-middle space-x-2 items-center">
+              <div className=''   >
                 <FaRegUserCircle size={20} />
               </div>
               <p className='text-xl pr-2'>User</p>
