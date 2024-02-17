@@ -1,30 +1,25 @@
-// Import the express in typescript file
-import express from 'express';
-import dotenv from 'dotenv'
-import path from 'path';
+import express, { Express, Request, Response, Application } from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors'
+import connectToMongo from './db'
 
-import connectToMongo from './db';
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
+//For env File 
 dotenv.config();
 
 connectToMongo()
-// Initialize the express engine
-const app: express.Application = express();
 
-// Allow Public to be accessed since declared as static
-app.use('/public', express.static(path.join(__dirname, 'public')));
+const app: Application = express();
+app.use(cors())
+const port = process.env.PORT || 8000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+// Middleware to parse JSON bodies
 app.use(express.json());
-dotenv.config();
 
+// Middleware to parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
 
-// Routers for the pages
-app.use('/auth', require('./Router/Authorization.controller'));
+app.use('/auth',require('./routers/auth.controller'))
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server Started on Port ${process.env.PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running at Port:${port}`);
 });

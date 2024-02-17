@@ -1,12 +1,11 @@
-const express = require('express');
-const User = require('../Modals/User');
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs');
+import express, { Request, Response } from 'express';
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+var dotenv = require("dotenv");
+
+import User from '../Models/User';
+
 const router = express.Router();
-
-const dotenv = require("dotenv");
-import { Request, Response } from 'express';
-
 dotenv.config();
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -18,41 +17,34 @@ dotenv.config();
 /*---------------------------------------------------------------------------------------------------------------------------------------------------*/
 // API REGISTERS THE USER DATA AND GIVE THEM THE JWT TOCKEN
 
+router.post('/register',
+    async (req: Request, res: Response) => {
+        let success = "false"
+        try {
+            let user = await User.findOne({ email: req.body.email })
 
-router.post('/register', async (req: Request, res: Response) => {
-    let success: boolean = false;
-
-    try {
-        let user = await User.findOne({ email: req.body.email });
-
-        if (user) {
-            return res.status(400).json({ success, msg: 'user exists' });
-        }
-
-        const salt = await bcrypt.genSalt(15);
-        const securePassword = await bcrypt.hash(req.body.password, salt);
-
-        user = await User.create({
-            email: req.body.email,
-            username: req.body.username,
-            password: securePassword,
-            isadmin: req.body.isadmin,
-        });
-
-        const data = {
-            user: {
-                id: user.id
+            if (user) {
+                return res.status(400).json({ success, msg: 'User Already Exists' });
             }
-        };
 
-        const token = jwt.sign(data, process.env.Secret_Key!);
-        success = true;
-        res.status(201).json({ success, token, msg: 'user created' });
-    } catch (error) {
-        res.status(500).json({ success, error });
+            const Salt = await bcrypt.genSalt(15);
+            const Secure_password = await bcrypt.hash(req.body.password, Salt);
+
+            user = await User.create({
+                email: req.body.email,
+                name: req.body.name,
+                password: Secure_password,
+                isAdmin: req.body.occupation,
+            })
+
+            success = 'true'
+            res.status(200).json({ success, msg: "user created" })
+
+        } catch (error) {
+            res.status(500).json({ success, error: error })
+        }
     }
-});
-
+)
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -63,8 +55,8 @@ router.post('/register', async (req: Request, res: Response) => {
 router.post('/login',
     async (req: Request, res: Response) => {
         let success = false;
+        console.log(req.body)
         const { email, password } = req.body;
-
         try {
             let user = await User.findOne({ email });
 
@@ -88,7 +80,7 @@ router.post('/login',
             }
             const Token = jwt.sign(data, process.env.Secret_Key);
             success = true;
-            res.status(201).json({ success, Token })
+            res.status(201).json({ success, user })
         }
         catch (error) {
 
@@ -96,6 +88,5 @@ router.post('/login',
         }
     }
 )
-
 
 module.exports = router 
