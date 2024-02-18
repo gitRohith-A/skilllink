@@ -1,11 +1,11 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
     email: string;
-    username?: string;
+    name?: string;
     password?: string;
     date: Date;
-    isAdmin?: number;
+    isAdmin?: string;
     boardingStatus?: number;
     categories?: string;
     occupation?: string;
@@ -17,13 +17,13 @@ const UserSchema: Schema = new Schema({
         type: String,
         unique: true
     },
-    username: String,
+    name: String,
     password: String,
     date: {
         type: Date,
         default: Date.now
     },
-    isAdmin: Number,
+    isAdmin: String,
     boardingStatus: Number,
     categories: String,
     occupation: String,

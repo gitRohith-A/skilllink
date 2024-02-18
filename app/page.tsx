@@ -1,9 +1,12 @@
-import Page from "../app/login/page"
+import Banner from "@/components/Home/Banner";
+import NavBar from "@/components/Home/NavBar";
 
 export default function Home() {
   return (
-    <>
-      <Page />
-    </>
+    <div>
+      <NavBar />
+      <Banner />
+
+    </div>
   );
 }
