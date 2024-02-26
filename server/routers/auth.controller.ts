@@ -91,7 +91,7 @@ router.post('/register/provider',
         try {
             let user = await User.findOne({ email: req.body.email })
 
-            if (user ) {
+            if (user) {
                 return res.status(400).json({ success, msg: 'User Already Exists' });
             }
 
@@ -115,7 +115,8 @@ router.post('/register/provider',
 
 router.get('/getUser/:email', async (req: Request, res: Response) => {
     try {
-        const user = await User.findOne({ email: req.params.email });
+        const user = await User.findOne({ email: req.params.email })
+            .select('-__v -verifyEmail -provider')
 
         if (!user) {
             return res.status(404).json({ error: "No user available with the email" });

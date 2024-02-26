@@ -21,11 +21,9 @@ interface ProfileProps {
 function Profile({ session }: ProfileProps) {
     const [state, setState] = useState(false)
     const dispatch = useDispatch()
-    const { loading } = useSelector(state => state.loading);
 
     const handleStateLoading = () => {
         setState(false)
-        dispatch(setLoading(true))
     }
 
     return (

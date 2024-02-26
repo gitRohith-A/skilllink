@@ -6,7 +6,7 @@ async function page() {
     const session = await auth()
     return (
         <div className='w-full h-screen flex justify-center items-center'>
-            <div className="container">
+            <div className="container px-5">
 
                 <div className="text-orange-500 text-3xl mb-5">
                     Do you want to sign out?

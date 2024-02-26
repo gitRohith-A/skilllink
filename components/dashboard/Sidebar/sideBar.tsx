@@ -12,7 +12,7 @@ async function SideBar({
     const session: any = await auth()
 
     return (
-        <div className='flex'>
+        <>
             <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-100 dark:bg-white dark:border-gray-200">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
@@ -34,10 +34,10 @@ async function SideBar({
 
             <SideNav />
 
-            <div className="mx-5 mt-12 p-4 sm:ml-64">
+            <div className="mt-12 p-4 pt-6 sm:ml-64">
                 {children}
             </div>
-        </div>
+        </>
     )
 }
 

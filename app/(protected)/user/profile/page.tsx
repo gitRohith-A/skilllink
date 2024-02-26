@@ -1,12 +1,12 @@
+import Profile from '@/components/dashboard/profile/Profile'
 import React from 'react'
 
 function page() {
     return (
         <div>
-            Profile
+            <Profile />
         </div>
     )
 }
 
 export default page
-    
