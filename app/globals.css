@@ -1,6 +1,25 @@
+/* NOTE layer 1 */
+
 @tailwind base;
+
+
+/* NOTE layer 2 */
+
 @tailwind components;
+
+/* render before tailwind utilities */
+.filbtn{
+  @apply  px-5 py-2 rounded-lg border border-prime border-opacity-50 text-prime
+}
+.outbtn{
+  @apply  px-5 py-2 rounded-lg border border-prime border-opacity-50 text-prime
+}
+
+
+/* NOTE layer 3 */
+
 @tailwind utilities;
+/* add only when you want to over write utilities class properties  */
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -17,7 +36,7 @@
 }
 
 
-
+/* change the layer name where u want to show the css */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -29,3 +48,4 @@
   background-image:radial-gradient(66.55% 66.5% at 50% 0%, #EFF6FF 0%, rgba(219, 234, 254, 0.00) 100%);
 
 }
+
