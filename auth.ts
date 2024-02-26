@@ -19,7 +19,6 @@ export const {
         try {
           // Make API call to register user
           const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/register/provider`, { account, user });
-          console.log(response);
 
           if (response.status === 200) {
             // Registration successful
@@ -37,6 +36,17 @@ export const {
       } else {
         // Ignore sign-in for providers other than Google and GitHub
         return true;
+      }
+    },
+
+    async signOut({ account }) {
+      try {
+        // Perform sign-out actions here if necessary
+        console.log(`User signed out from ${account.provider}`);
+        return true; // Indicate successful sign-out
+      } catch (error: any) {
+        console.error("Failed to sign out user. " + error.message);
+        return false; // Indicate failed sign-out
       }
     },
 

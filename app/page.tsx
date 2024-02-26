@@ -1,12 +1,12 @@
 import Banner from "@/components/Home/Banner";
 import NavBar from "@/components/Home/NavBar";
+import React from "react";
 
 export default function Home() {
   return (
-    <div>
+    <React.Fragment>
       <NavBar />
       <Banner />
-
-    </div>
+    </React.Fragment>
   );
 }
