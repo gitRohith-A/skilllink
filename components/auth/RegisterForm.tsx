@@ -3,8 +3,12 @@ import React, { useState, useTransition } from 'react';
 import { FormError } from '../form-error';
 import { FormSuccess } from '../form-success';
 import { register } from '@/actions/register';
+import { signIn } from 'next-auth/react';
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
 
-interface RegisterFormProps {}
+interface RegisterFormProps { }
 
 const RegisterForm: React.FC<RegisterFormProps> = () => {
     const [data, setData] = useState({ email: '', password: '', name: '', occupation: '' });
@@ -16,11 +20,17 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
+    const SocialMedia = (provider: 'google' | 'github') => {
+        signIn(provider, {
+            callbackUrl: DEFAULT_LOGIN_REDIRECT
+        })
+    }
+
     const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setSuccess("");
-        
+
         startTransition(() => {
             register(data)
                 .then((data) => {
@@ -48,11 +58,40 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
                                 <SelectBox name="occupation" value={data.occupation} onChange={handleChange} disabled={isPending} />
                                 <FormError message={error} />
                                 <FormSuccess message={success} />
-                                <div className="mb-10">
+                                <div className="mb-5">
                                     <button type="submit" className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium text-dark transition hover:bg-opacity-90 hover:bg-blue-700 hover:delay-50  hover:text-white hover:ease-in-out duration-300 disabled:bg-slate-500" disabled={isPending}>
                                         Create Account
                                     </button>
                                 </div>
+                                <div className="flex items-center w-full gap-x-2">
+                                    <button
+                                        className="w-full border-2 rounded-md py-1"
+                                        onClick={() => SocialMedia("google")}
+                                        type='button'
+                                    >
+                                        <div className="flex items-center justify-evenly">
+                                            Continue with <FcGoogle className="h-10 w-10" />
+                                        </div>
+                                    </button>
+                                    <button
+                                        className="w-full border-2 rounded-md py-1"
+                                        onClick={() => SocialMedia("github")}
+                                        type='button'
+                                    >
+                                        <div className="flex items-center justify-evenly">
+                                            Continue with <FaGithub className="h-10 w-10" />
+                                        </div>
+                                    </button>
+                                </div>
+                                <p className="text-base text-body-color dark:text-dark-6 mt-5">
+                                    <span className="pr-0.5">Already Have account?</span>
+                                    <a
+                                        href="/login"
+                                        className="text-primary hover:underline"
+                                    >
+                                        Login In
+                                    </a>
+                                </p>
                             </form>
                         </div>
                     </div>

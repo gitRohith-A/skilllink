@@ -1,21 +1,9 @@
-import { auth, signOut } from '@/auth'
 import React from 'react'
 
 async function dashboard() {
-    const session = await auth()
     return (
         <div>
-
-            {JSON.stringify(session)}
-
-            <form action={async () => {
-                "use server";
-                await signOut();
-            }}>
-                <button type="submit">
-                    Sign out
-                </button>
-            </form>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio voluptatum dolor dolore soluta sed, maiores sint sit praesentium? Praesentium eaque harum doloremque ducimus illum error expedita ad vitae commodi dolorum?
         </div >
     )
 }
