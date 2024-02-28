@@ -39,17 +39,6 @@ export const {
       }
     },
 
-    async signOut({ account }) {
-      try {
-        // Perform sign-out actions here if necessary
-        console.log(`User signed out from ${account.provider}`);
-        return true; // Indicate successful sign-out
-      } catch (error: any) {
-        console.error("Failed to sign out user. " + error.message);
-        return false; // Indicate failed sign-out
-      }
-    },
-
     async session({ session, token }) {
       if (token.email && session.user) {
         session.user.id = token.id as string

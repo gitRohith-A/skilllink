@@ -4,8 +4,10 @@ import { getUserByEmail } from '@/Functions/User';
 import { auth } from '@/auth';
 import Loading from '@/components/others/loading';
 import ProfileFields from './ProfileFields';
+import ModalPrototype from '@/components/others/Modal';
 
 export interface UserType {
+    [key: string]: any;
     email: string;
     name?: string;
     password?: string;
@@ -13,7 +15,7 @@ export interface UserType {
     isAdmin?: string;
     verifyEmail?: Date;
     image?: string,
-    about: string,
+    aboutMe: string,
     backgrounImage?: string,
     location?: string,
     dob: Date,
@@ -30,20 +32,16 @@ export interface ProfileHeadProps {
 
 const Profile: React.FC = async () => {
     const session: any = await auth();
-    const user: UserType | any = await getUserByEmail(session.user.email);
+    const user: UserType = await getUserByEmail(session.user.email);
 
     if (user)
         return (
             <React.Fragment>
-
-                <Suspense fallback={
-                    <Loading />
-                }>
+                <Suspense fallback={<Loading />}>
                     <ProfileHead user={user} />
                     <ProfileFields user={user} />
+                    <ModalPrototype user={user} />
                 </Suspense>
-
-
             </React.Fragment>
         );
     else return null;
