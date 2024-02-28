@@ -39,7 +39,7 @@ const UserSchema: Schema = new Schema({
     backgrounImage: String,
     provider: String,
     dob: Date,
-    about: String,
+    aboutMe: String,
     location: String,
     boardingStatus: {
         type: Number,

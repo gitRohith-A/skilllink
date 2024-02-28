@@ -113,18 +113,4 @@ router.post('/register/provider',
     }
 )
 
-router.get('/getUser/:email', async (req: Request, res: Response) => {
-    try {
-        const user = await User.findOne({ email: req.params.email })
-            .select('-__v -verifyEmail -provider')
-
-        if (!user) {
-            return res.status(404).json({ error: "No user available with the email" });
-        }
-        return res.status(200).json({ user });
-    } catch (error: any) {
-        return res.status(500).json({ error: error.message });
-    }
-});
-
 module.exports = router 
