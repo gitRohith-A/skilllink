@@ -16,6 +16,7 @@ export const publicRoutes = [
 export const authRoutes = [
     '/login',
     '/register',
+    '/error'
 ]
 
 /**
@@ -29,3 +30,9 @@ export const apiAuthPrefix = '/api/auth'
  * @type {string}
  */
 export const DEFAULT_LOGIN_REDIRECT = '/dashboard'
+
+
+/**
+ * Revalidate dynamic fetch data
+ */
+export const dynamic = 'auto'

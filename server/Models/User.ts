@@ -6,9 +6,16 @@ export interface IUser extends Document {
     password?: string;
     date: Date;
     isAdmin?: string;
+    verifyEmail?: Date;
+    image?: string,
+    about: string,
+    backgrounImage?: String,
+    Location?: string,
+    dob: Date,
     boardingStatus?: number;
     categories?: string;
     occupation?: string;
+    provider: string;
     otps?: string;
 }
 
@@ -24,7 +31,20 @@ const UserSchema: Schema = new Schema({
         default: Date.now
     },
     isAdmin: String,
-    boardingStatus: Number,
+    verifyEmail: {
+        type: Date,
+        default: Date.now
+    },
+    image: String,
+    backgrounImage: String,
+    provider: String,
+    dob: Date,
+    aboutMe: String,
+    location: String,
+    boardingStatus: {
+        type: Number,
+        default: 1
+    },
     categories: String,
     occupation: String,
     otps: String
