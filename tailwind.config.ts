@@ -9,6 +9,12 @@ const config: Config = {
 
   theme: {
     extend: {
+
+      // NOTE custom class props
+      // spacing: {
+      //   13: '3rem'
+      // },
+
       colors: {
         'prime': '#EB493C',
         'br': '#02070D',
