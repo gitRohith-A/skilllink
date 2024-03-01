@@ -6,6 +6,8 @@ import Loading from '@/components/others/loading';
 import ProfileFields from './ProfileFields';
 import ModalPrototype from '@/components/others/Modal';
 
+export const revalidate = true
+
 export interface UserType {
     [key: string]: any;
     email: string;
@@ -33,7 +35,6 @@ export interface ProfileHeadProps {
 const Profile: React.FC = async () => {
     const session: any = await auth();
     const user: UserType = await getUserByEmail(session.user.email);
-
     if (user)
         return (
             <React.Fragment>

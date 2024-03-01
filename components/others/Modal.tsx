@@ -8,11 +8,11 @@ import { ProfileHeadProps } from '../dashboard/profile/Profile';
 import { keyLabelMapInput, StringObject } from './data/inputListsTypes';
 import Alert from './Alert';
 import { setError } from '@/lib/features/errorSlice';
+import { editUser } from '@/Functions/User';
 
 const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
     const modalstate = useSelector((state: RootState) => state.modal);
     const dispatch = useDispatch();
-
     const [formData, setFormData] = useState<StringObject>({
         email: user.email || '',
         name: user.name || '',
@@ -29,11 +29,11 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
         }));
     };
 
-    const handleSubmit = () => {
-        console.log(formData)
+    const handleSubmit = async () => {
         dispatch(setError({ active: true, message: 'check' }))
-        if (modalstate.id === 0) {
-            // Logic for modalState.id = 0
+
+        if (modalstate.id === 1) {
+            const response = await editUser(user._id, formData)
         } else if (modalstate.id === 2) {
             // Logic for modalState.id = 2 (About Me update)
             // Example: Dispatch action to update aboutMe
