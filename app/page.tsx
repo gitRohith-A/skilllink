@@ -14,7 +14,6 @@ export default function Home() {
       <SearchandFilters />
       <ServicesCard />
       <Footer />
-    </div>
     </React.Fragment>
   );
 }
