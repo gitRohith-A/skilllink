@@ -5,6 +5,8 @@ import { auth } from '@/auth';
 import Loading from '@/components/others/loading';
 import ProfileFields from './ProfileFields';
 import ModalPrototype from '@/components/others/Modal';
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
+import Error from '../../../app/(protected)/error';
 
 export const revalidate = true
 
@@ -39,6 +41,7 @@ const Profile: React.FC = async () => {
         return (
             <React.Fragment>
                 <Suspense fallback={<Loading />}>
+
                     <ProfileHead user={user} />
                     <ProfileFields user={user} />
                     <ModalPrototype user={user} />

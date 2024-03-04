@@ -2,15 +2,15 @@ import { StringObject } from "@/components/others/data/inputListsTypes";
 
 export const getUserByEmail = async (email: string) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/getUser/${email}`);
-        const Json = await response.json()
-        const user = Json.user
-        return user
-
+        const response = await fetch(`http://localhost:3000/api/users?email=${email}`);
+        const json = await response.json();
+        const user = json.user;
+        return user;
     } catch (error: any) {
-        console.log(error)
+        console.error(error);
     }
-}
+};
+
 
 export const editUser = async (id: string, formData: StringObject) => {
     try {
@@ -27,7 +27,7 @@ export const editUser = async (id: string, formData: StringObject) => {
         }
 
         const data = await response.json();
-        return data.user; 
+        return data.user;
     } catch (error) {
         console.error('Error editing user:', error);
         throw error;
