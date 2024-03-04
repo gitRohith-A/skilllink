@@ -28,6 +28,7 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "globe": "url('../public/globe.jpg')",
+        "loginbg": "url('../public/loginbg.svg')",
       },
     },
   },
