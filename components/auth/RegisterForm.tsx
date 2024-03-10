@@ -7,7 +7,8 @@ import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
-
+import Image from 'next/image';
+import reg from '../../public/home/reg.svg'
 interface RegisterFormProps { }
 
 const RegisterForm: React.FC<RegisterFormProps> = () => {
@@ -41,17 +42,35 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
     }
 
     return (
-        <section className="bg-slate-700 flex items-center h-screen">
-            <div className="container mx-auto">
-                <div className="-mx-4 flex flex-wrap">
-                    <div className="w-full">
+        <section className="bg-slate-100
+         flex items-center  h-screen">
+            <div className="container ">
+                <div className="columns-2">
+                    <div className="mx-4  flex flex-wrap">
                         <div className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white px-10 py-16 text-center dark:bg-dark-2 sm:px-12 md:px-[60px]">
-                            <div className="mb-10 text-center md:mb-16">
-                                <a href="/#" className="mx-auto inline-block max-w-[160px]">
-                                    <h5 className="text-4xl font-bold text-blue-700 ">SkillLink</h5>
-                                </a>
-                            </div>
                             <form onSubmit={handleClick}>
+                                <div className=" w-full space-y-6 mb-4">
+                                    <button
+                                        className="w-full border-2 rounded-xl py-1"
+                                        onClick={() => SocialMedia("google")}
+                                        type='button'
+                                    >
+                                        <div className="flex items-center justify-center space-x-4 py-2">
+                                            <FcGoogle className="h-8 w-8" />
+                                            <p>Continue with Google</p>
+                                        </div>
+                                    </button>
+                                    <button
+                                        className="w-full border-2 rounded-xl py-1"
+                                        onClick={() => SocialMedia("github")}
+                                        type='button'
+                                    >
+                                        <div className="flex items-center justify-center space-x-4 py-2">
+                                            <FaGithub className="h-8 w-8" />
+                                            <p>Continue with GitHub</p>
+                                        </div>
+                                    </button>
+                                </div>
                                 <InputBox type="text" name="name" placeholder="User Name" value={data.name} onChange={handleChange} disabled={isPending} />
                                 <InputBox type="email" name="email" placeholder="Email" value={data.email} onChange={handleChange} disabled={isPending} />
                                 <InputBox type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} disabled={isPending} />
@@ -59,30 +78,11 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
                                 <FormError message={error} />
                                 <FormSuccess message={success} />
                                 <div className="mb-5">
-                                    <button type="submit" className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium text-dark transition hover:bg-opacity-90 hover:bg-blue-700 hover:delay-50  hover:text-white hover:ease-in-out duration-300 disabled:bg-slate-500" disabled={isPending}>
+                                    <button type="submit" className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium bg-blue-600 text-white hover:bg-blue-500" disabled={isPending}>
                                         Create Account
                                     </button>
                                 </div>
-                                <div className="flex items-center w-full gap-x-2">
-                                    <button
-                                        className="w-full border-2 rounded-md py-1"
-                                        onClick={() => SocialMedia("google")}
-                                        type='button'
-                                    >
-                                        <div className="flex items-center justify-evenly">
-                                            Continue with <FcGoogle className="h-10 w-10" />
-                                        </div>
-                                    </button>
-                                    <button
-                                        className="w-full border-2 rounded-md py-1"
-                                        onClick={() => SocialMedia("github")}
-                                        type='button'
-                                    >
-                                        <div className="flex items-center justify-evenly">
-                                            Continue with <FaGithub className="h-10 w-10" />
-                                        </div>
-                                    </button>
-                                </div>
+
                                 <p className="text-base text-body-color dark:text-dark-6 mt-5">
                                     <span className="pr-0.5">Already Have account?</span>
                                     <a
@@ -93,6 +93,22 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
                                     </a>
                                 </p>
                             </form>
+                        </div>
+                    </div>
+                    <div className="mb-10 text-center md:mb-16 relative space-y-32">
+
+                        <a href="/#" className="mx-auto inline-block max-w-[160px]">
+                            <div className="flex justify-end my-4 absolute top-[-16px] left-[52.5%]
+                                ">
+                                <span className="relative flex h-3 w-3 ">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                                </span>
+                            </div>
+                            <h5 className="text-4xl font-bold text-blue-600 ">SkillLink</h5>
+                        </a>
+                        <div className='flex justify-center '>
+                            <Image src={reg} alt='image' />
                         </div>
                     </div>
                 </div>
