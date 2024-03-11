@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModal } from '@/lib/features/modalSlice';
@@ -10,9 +8,15 @@ import Alert from './Alert';
 import { setError } from '@/lib/features/errorSlice';
 import { editUser } from '@/Functions/User';
 
+export interface FileState {
+    backgroundImage: File | null;
+    image: File | null;
+}
+
 const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
     const modalstate = useSelector((state: RootState) => state.modal);
     const dispatch = useDispatch();
+
     const [formData, setFormData] = useState<StringObject>({
         email: user.email || '',
         name: user.name || '',
@@ -22,6 +26,11 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
         aboutMe: user.aboutMe || '',
     });
 
+    const [files, setFiles] = useState<FileState>({
+        backgroundImage: null,
+        image: null,
+    });
+
     const handleChange = (key: string, value: string) => {
         setFormData(prevState => ({
             ...prevState,
@@ -29,15 +38,20 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
         }));
     };
 
-    const handleSubmit = async () => {
-        dispatch(setError({ active: true, message: 'check' }))
+    const handleFileChange = (key: keyof FileState, file: File | null) => {
+        setFiles(prevState => ({
+            ...prevState,
+            [key]: file,
+        }));
+    };
 
-        if (modalstate.id === 1) {
-            const response = await editUser(user._id, formData)
-        } else if (modalstate.id === 2) {
-            // Logic for modalState.id = 2 (About Me update)
-            // Example: Dispatch action to update aboutMe
-            // dispatch(updateAboutMe(formData.aboutMe));
+    const handleSubmit = async () => {
+        dispatch(setError({ active: true, message: 'check' }));
+
+        const response = await editUser(user._id, formData, files);
+        if (response.success) {
+            dispatch(setModal({ id: 0, type: ' ', active: false }));
+            window.location.reload();
         }
     };
 
@@ -50,6 +64,20 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
                     </div>
                     <div className="relative z-50 w-full max-w-md p-6 mx-auto bg-[#06273C] rounded-lg shadow-xl">
                         <div className="text-xl font-bold text-white">Profile Update</div>
+                        <div className="flex justify-center mt-4">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={e => handleFileChange('backgroundImage', e.target.files ? e.target.files[0] : null)}
+                            />
+                        </div>
+                        <div className="flex justify-center mt-4">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={e => handleFileChange('image', e.target.files ? e.target.files[0] : null)}
+                            />
+                        </div>
                         {modalstate.id === 2 ? (
                             <div className="flex justify-center mt-4">
                                 <textarea
@@ -106,6 +134,5 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
         </div>
     );
 };
-
 
 export default ModalPrototype;

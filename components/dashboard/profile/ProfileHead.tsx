@@ -4,14 +4,20 @@ import { ProfileHeadProps } from './Profile';
 import Tooltip from '@/components/others/tools/ToolTips';
 import profile from '@/public/home/profile.png'
 import Image from 'next/image';
+import { MdEdit } from 'react-icons/md';
 
 const ProfileHead: React.FC<ProfileHeadProps> = async ({ user }) => {
   return (
     <div className="h-full bg-gray-200 p-4">
       <div className="bg-white rounded-lg shadow-xl pb-8">
+
         <div className="w-full h-[250px]">
           <img src={user?.backgrounImage ? user?.backgrounImage : "https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"} className="w-full h-full rounded-tl-lg rounded-tr-lg" />
+          <div className="bg-gray-200 relative bottom-11 left-2 w-fit p-3 rounded-full">
+            <MdEdit size={15} className='text-orange-600' />
+          </div>
         </div>
+
         <div className="flex flex-col items-center -mt-20">
           {user.image ?
             <img src={user.image} className="w-40 border-4 border-white rounded-full" />

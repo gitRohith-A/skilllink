@@ -1,8 +1,9 @@
+import { FileState } from "@/components/others/Modal";
 import { StringObject } from "@/components/others/data/inputListsTypes";
 
 export const getUserByEmail = async (email: string) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/users?email=${email}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/getUser/${email}`);
         const json = await response.json();
         const user = json.user;
         return user;
@@ -12,7 +13,7 @@ export const getUserByEmail = async (email: string) => {
 };
 
 
-export const editUser = async (id: string, formData: StringObject) => {
+export const editUser = async (id: string, formData: StringObject, files: File: FileState) => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${id}`, {
             method: 'PUT',
@@ -27,7 +28,7 @@ export const editUser = async (id: string, formData: StringObject) => {
         }
 
         const data = await response.json();
-        return data.user;
+        return data;
     } catch (error) {
         console.error('Error editing user:', error);
         throw error;

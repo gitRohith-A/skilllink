@@ -18,9 +18,9 @@ export interface UserType {
     date: Date;
     isAdmin?: string;
     verifyEmail?: Date;
-    image?: string,
+    image?: string | File,
     aboutMe: string,
-    backgrounImage?: string,
+    backgrounImage?: string | File,
     location?: string,
     dob: Date,
     boardingStatus?: number;
@@ -41,7 +41,6 @@ const Profile: React.FC = async () => {
         return (
             <React.Fragment>
                 <Suspense fallback={<Loading />}>
-
                     <ProfileHead user={user} />
                     <ProfileFields user={user} />
                     <ModalPrototype user={user} />
