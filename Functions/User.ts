@@ -22,7 +22,10 @@ export const editUser = async (id: string, formData: StringObject, files: FileSt
             formDataToSend.append(key, formData[key]);
         }
 
-        formDataToSend.append('file', files);
+        if (files) {
+            // If files exist, append them to FormData
+            formDataToSend.append('file', files);
+        }
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${id}`, {
             method: 'PUT',
@@ -40,3 +43,4 @@ export const editUser = async (id: string, formData: StringObject, files: FileSt
         throw error;
     }
 }
+

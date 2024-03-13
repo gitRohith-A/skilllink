@@ -1,9 +1,16 @@
+import { getUserByEmail } from '@/Functions/User';
+import { auth } from '@/auth';
 import Link from 'next/link'
 import React from 'react'
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { IoMailOutline } from "react-icons/io5";
+import { UserType } from '../dashboard/profile/Profile';
+import ProfileDropdown from '../dashboard/Sidebar/Elements/ProfileDropdown';
 
-function NavBar() {
+
+
+async function NavBar() {
+    const session: any = await auth();
+    const user: UserType = await getUserByEmail(session?.user.email);
+
     return (
         <div className='bg-white'>
             <div className="container py-3 px-12">
@@ -21,19 +28,16 @@ function NavBar() {
                     </div>
                     <div className="columns-2 flex items-center">
 
-                        <div className="px-2    ">
-                            <IoIosNotificationsOutline size={25} className='text-blue-400' />
-                        </div>
-                        <div className="px-2 mx-3">
-                            <IoMailOutline size={25} className='text-blue-400' />
-                        </div>
+                        {user ?
+                            <ProfileDropdown
+                                user={user}
+                            />
+                            :
+                            <Link href='/login' className="rounded hover:border-1 px-3 py-1 bg-prime text-white hover:bg-blue-600/50">
+                                Login
+                            </Link>
+                        }
 
-
-                        <div className="rounded-full w-fit bg-prime px-4 py-2">
-                            <h6 className='text-white'>
-                                R
-                            </h6>
-                        </div>
                     </div>
                 </div>
                 {/* drop down */}

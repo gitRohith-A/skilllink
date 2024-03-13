@@ -2,7 +2,7 @@
 
 const nextConfig = {
     images: {
-      domains: ['localhost:5000', 'lh3.googleusercontent.com','avatars.githubusercontent.com'], // Add your image domains here
+      domains: ['localhost', 'lh3.googleusercontent.com','avatars.githubusercontent.com'], 
     },
   };
   
