@@ -1,10 +1,8 @@
-var dotenv = require("dotenv");
 import express, { Request, Response } from 'express';
-
 import User from '../Models/User';
+import { upload } from '../utils/multer';
 
 const router = express.Router();
-dotenv.config();
 
 router.get('/getUser/:email', async (req: Request, res: Response) => {
     try {
@@ -20,12 +18,19 @@ router.get('/getUser/:email', async (req: Request, res: Response) => {
     }
 });
 
-// Endpoint to update user data
-router.put('/:id', async (req: Request, res: Response) => {
+// Endpoint to update user data with file upload
+router.put('/:id', upload.single('file'), async (req: Request, res: Response) => {
     const { id } = req.params;
     const formData = req.body;
 
     try {
+        // Check if file was uploaded
+        if (req.file) {
+            // If file was uploaded, update the image field with the path
+            formData.image = process.env.VIEW + req.file.path.replace('\\/g', '/');
+        }
+        formData.boardingStatus = 0;
+
         // Find the user by id and update the fields
         const user = await User.findByIdAndUpdate(id, formData, { new: true });
 
@@ -40,4 +45,5 @@ router.put('/:id', async (req: Request, res: Response) => {
     }
 });
 
-module.exports = router 
+
+module.exports = router

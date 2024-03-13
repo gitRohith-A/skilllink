@@ -74,7 +74,6 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
                                 <InputBox type="text" name="name" placeholder="User Name" value={data.name} onChange={handleChange} disabled={isPending} />
                                 <InputBox type="email" name="email" placeholder="Email" value={data.email} onChange={handleChange} disabled={isPending} />
                                 <InputBox type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} disabled={isPending} />
-                                <SelectBox name="occupation" value={data.occupation} onChange={handleChange} disabled={isPending} />
                                 <FormError message={error} />
                                 <FormSuccess message={success} />
                                 <div className="mb-5">
@@ -138,31 +137,6 @@ const InputBox: React.FC<InputBoxProps> = ({ type, placeholder, name, value, onC
                 className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-dark"
                 disabled={disabled}
             />
-        </div>
-    );
-};
-
-interface SelectBoxProps {
-    name: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    disabled: boolean;
-}
-
-const SelectBox: React.FC<SelectBoxProps> = ({ name, value, onChange, disabled }) => {
-    return (
-        <div className="mb-4">
-            <select
-                name={name}
-                className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-dark text-slate-400"
-                value={value}
-                onChange={onChange}
-                disabled={disabled}
-            >
-                <option value="" disabled>Who Are You</option>
-                <option className='text-black' value="enterprises">Enterpries</option>
-                <option className='text-black' value="user ">User</option>
-            </select>
         </div>
     );
 };

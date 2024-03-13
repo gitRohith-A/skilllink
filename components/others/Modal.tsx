@@ -1,17 +1,14 @@
+'use client'
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModal } from '@/lib/features/modalSlice';
 import { RootState } from '@/lib/store';
-import { ProfileHeadProps } from '../dashboard/profile/Profile';
+import { FileState, ProfileHeadProps } from '../dashboard/profile/Profile';
 import { keyLabelMapInput, StringObject } from './data/inputListsTypes';
-import Alert from './Alert';
 import { setError } from '@/lib/features/errorSlice';
 import { editUser } from '@/Functions/User';
 
-export interface FileState {
-    backgroundImage: File | null;
-    image: File | null;
-}
 
 const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
     const modalstate = useSelector((state: RootState) => state.modal);
@@ -26,22 +23,12 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
         aboutMe: user.aboutMe || '',
     });
 
-    const [files, setFiles] = useState<FileState>({
-        backgroundImage: null,
-        image: null,
-    });
+    const [files, setFiles] = useState<FileState>(null);
 
     const handleChange = (key: string, value: string) => {
         setFormData(prevState => ({
             ...prevState,
             [key]: value,
-        }));
-    };
-
-    const handleFileChange = (key: keyof FileState, file: File | null) => {
-        setFiles(prevState => ({
-            ...prevState,
-            [key]: file,
         }));
     };
 
@@ -55,6 +42,16 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
         }
     };
 
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        setFiles(file);
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+    };
+
     return (
         <div>
             {modalstate.active && (
@@ -64,55 +61,66 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
                     </div>
                     <div className="relative z-50 w-full max-w-md p-6 mx-auto bg-[#06273C] rounded-lg shadow-xl">
                         <div className="text-xl font-bold text-white">Profile Update</div>
-                        <div className="flex justify-center mt-4">
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={e => handleFileChange('backgroundImage', e.target.files ? e.target.files[0] : null)}
-                            />
-                        </div>
-                        <div className="flex justify-center mt-4">
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={e => handleFileChange('image', e.target.files ? e.target.files[0] : null)}
-                            />
-                        </div>
-                        {modalstate.id === 2 ? (
-                            <div className="flex justify-center mt-4">
-                                <textarea
-                                    className="shadow appearance-none border-2 h-24 border-[#254862] rounded-xl w-96 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-[#0C3350]"
-                                    id="aboutMe"
-                                    placeholder="About Me"
-                                    value={formData.aboutMe}
-                                    onChange={e => handleChange('aboutMe', e.target.value)}
-                                />
+
+                        {modalstate.id === 4 || modalstate.id === 3 ? (
+                            <div
+                                className="flex justify-center mt-4 border-2 border-dashed border-gray-300 p-4 rounded-lg text-white"
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                            >
+                                {
+                                    !files &&
+                                    <>
+                                        Drop image here or click to upload
+                                    </>
+                                }
+
+                                {files && (
+                                    <img src={URL.createObjectURL(files)} alt="Preview" className="mt-2 max-w-[200px] max-h-[200px]" />
+                                )}
                             </div>
                         ) : (
-                            Object.keys(keyLabelMapInput).map(key => (
-                                <div className="flex justify-center mt-4" key={key}>
-                                    {key === 'location' ? (
+                            <>
+                                {modalstate.id === 2 ? (
+                                    <div className="flex justify-center mt-4">
                                         <textarea
                                             className="shadow appearance-none border-2 h-24 border-[#254862] rounded-xl w-96 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-[#0C3350]"
-                                            id={key}
-                                            placeholder={keyLabelMapInput[key]}
-                                            value={formData[key]}
-                                            onChange={e => handleChange(key, e.target.value)}
+                                            id="aboutMe"
+                                            placeholder="About Me"
+                                            value={formData.aboutMe}
+                                            onChange={e => handleChange('aboutMe', e.target.value)}
                                         />
-                                    ) : (
-                                        <input
-                                            className="shadow appearance-none border-2 h-10 border-[#254862] rounded-xl w-96 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-[#0C3350] disabled:bg-gray-800"
-                                            id={key}
-                                            type="text"
-                                            placeholder={keyLabelMapInput[key]}
-                                            value={formData[key]}
-                                            onChange={e => handleChange(key, e.target.value)}
-                                            disabled={key === 'email'}
-                                        />
-                                    )}
-                                </div>
-                            ))
+                                    </div>
+                                ) : (
+                                    Object.keys(keyLabelMapInput).map(key => (
+                                        <div className="flex justify-center mt-4" key={key}>
+                                            {key === 'location' ? (
+                                                <textarea
+                                                    className="shadow appearance-none border-2 h-24 border-[#254862] rounded-xl w-96 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-[#0C3350]"
+                                                    id={key}
+                                                    placeholder={keyLabelMapInput[key]}
+                                                    value={formData[key]}
+                                                    onChange={e => handleChange(key, e.target.value)}
+                                                />
+                                            ) : (
+                                                <input
+                                                    className="shadow appearance-none border-2 h-10 border-[#254862] rounded-xl w-96 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-[#0C3350] disabled:bg-gray-800"
+                                                    id={key}
+                                                    type="text"
+                                                    placeholder={keyLabelMapInput[key]}
+                                                    value={formData[key]}
+                                                    onChange={e => handleChange(key, e.target.value)}
+                                                    disabled={key === 'email'}
+                                                />
+                                            )}
+                                        </div>
+                                    ))
+                                )}
+                            </>
                         )}
+
+
+
                         <div className="flex justify-end">
 
                             <button
@@ -131,7 +139,7 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
                     </div>
                 </div>
             )}
-        </div>
+        </div >
     );
 };
 

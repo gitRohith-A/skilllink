@@ -1,4 +1,4 @@
-import { FileState } from "@/components/others/Modal";
+import { FileState } from '@/components/dashboard/profile/Profile';
 import { StringObject } from "@/components/others/data/inputListsTypes";
 
 export const getUserByEmail = async (email: string) => {
@@ -13,14 +13,20 @@ export const getUserByEmail = async (email: string) => {
 };
 
 
-export const editUser = async (id: string, formData: StringObject, files: File: FileState) => {
+export const editUser = async (id: string, formData: StringObject, files: FileState) => {
     try {
+        const formDataToSend = new FormData();
+
+        // Append form data fields to FormData object
+        for (const key in formData) {
+            formDataToSend.append(key, formData[key]);
+        }
+
+        formDataToSend.append('file', files);
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${id}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
+            body: formDataToSend,
         });
 
         if (!response.ok) {
