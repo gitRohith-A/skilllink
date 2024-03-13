@@ -5,6 +5,8 @@ import { auth } from '@/auth';
 import Loading from '@/components/others/loading';
 import ProfileFields from './ProfileFields';
 import ModalPrototype from '@/components/others/Modal';
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
+import Error from '../../../app/(protected)/error';
 
 export const revalidate = true
 
@@ -16,9 +18,9 @@ export interface UserType {
     date: Date;
     isAdmin?: string;
     verifyEmail?: Date;
-    image?: string,
+    image?: string | undefined,
     aboutMe: string,
-    backgrounImage?: string,
+    backgroundImage?: string | File,
     location?: string,
     dob: Date,
     boardingStatus?: number;
@@ -31,6 +33,8 @@ export interface UserType {
 export interface ProfileHeadProps {
     user: UserType;
 }
+
+export type FileState = File | null;
 
 const Profile: React.FC = async () => {
     const session: any = await auth();

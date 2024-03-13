@@ -11,6 +11,7 @@ export interface ModalType {
     id: number
 }
 
+
 const ProfileFields: React.FC<ProfileHeadProps> = ({ user }) => {
     const dispatch = useDispatch();
 
