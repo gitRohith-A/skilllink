@@ -16,12 +16,12 @@ const config: Config = {
       // },
 
       colors: {
-        'prime': '#EB493C',
+        // 'prime': '#EB493C',
+        'prime': '#2563eb',
         'br': '#02070D',
       },
       container: {
         center: true,
-
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
