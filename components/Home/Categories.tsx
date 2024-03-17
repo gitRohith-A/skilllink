@@ -78,10 +78,7 @@ function Categories() {
                                 marketing
                             </p>
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         </div>

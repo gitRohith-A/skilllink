@@ -19,6 +19,16 @@ const config: Config = {
         // 'prime': '#EB493C',
         'prime': '#2563eb',
         'br': '#02070D',
+        'bgclr': '#F5F5F5'
+
+      },
+      fontSize: {
+        'h1': '48px',
+        'h2': '36px',
+        'h3': '30px',
+        'h4': '24px',
+        'h5': '20px',
+        'h6': '16px',
       },
       container: {
         center: true,

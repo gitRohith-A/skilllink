@@ -33,11 +33,10 @@ async function NavBar() {
                                 user={user}
                             />
                             :
-                            <Link href='/login' className="rounded hover:border-1 px-3 py-1 bg-prime text-white hover:bg-blue-600/50">
+                            <Link href='/login' className="rounded hover:border-1 px-3 py-1 bg-prime text-white hover:bg-blue-500">
                                 Login
                             </Link>
                         }
-
                     </div>
                 </div>
                 {/* drop down */}
