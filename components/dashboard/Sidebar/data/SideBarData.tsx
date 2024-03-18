@@ -7,6 +7,19 @@ export const sideNavData = [
         icon: <MdDashboard />,
         link: '/dashboard'
     },
-   
+]
 
+export const sideNavDataAdmin =[
+    {
+        label:'users',
+        icon: <MdDashboard />,
+        link: '/admin/users-list'
+    }
+]
+export const sideNavDataEnterprises =[
+    {
+        label:'users',
+        icon: <MdDashboard />,
+        link: '/admin/users-list'
+    }
 ]

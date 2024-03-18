@@ -35,7 +35,7 @@ async function SideBar({
                 </div>
             </nav>
 
-            <SideNav />
+            <SideNav user={user} />
 
             <div className="mt-12 p-4 pt-6 sm:ml-64">
                 {children}

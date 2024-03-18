@@ -21,7 +21,6 @@ export interface ProfileProps {
 }
 
 function Profile({ user }: ProfileHeadProps) {
-
     return (
         <div>
             <div className="flex items-center">

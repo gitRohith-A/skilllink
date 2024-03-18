@@ -28,7 +28,7 @@ function ProfileDropdown({ user }: ProfileHeadProps) {
                     <ul className="py-1 px-1" role="none">
                         {profileData.map(ele => (
                             <li key={ele.link}>
-                                <Link href={ele.link} className="block px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-600 dark:hover:text-white" role="menuitem">{ele.label}</Link>
+                                <Link href={ele.link} onClick={handleOpen} className="block px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-600 dark:hover:text-white" role="menuitem">{ele.label}</Link>
                             </li>
                         ))}
                     </ul>
