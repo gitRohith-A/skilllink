@@ -10,7 +10,7 @@ export interface IUser extends Document {
     image?: string,
     about: string,
     backgrounImage?: String,
-    Location?: string,
+    location?: string,
     dob: Date,
     boardingStatus?: number;
     categories?: string;
