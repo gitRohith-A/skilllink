@@ -3,7 +3,6 @@ import React, { Suspense } from 'react';
 import Loading from '../../components/others/loading';
 import { auth } from '@/auth';
 
-// Lazy load Sidebar component
 const SideBar = React.lazy(() => import('@/components/dashboard/Sidebar/sideBar'));
 
 async function Layout({ children }: { children: React.ReactNode }) {
