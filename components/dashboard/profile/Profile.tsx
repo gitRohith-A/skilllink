@@ -5,7 +5,6 @@ import { auth } from '@/auth';
 import Loading from '@/components/others/loading';
 import ProfileFields from './ProfileFields';
 import ModalPrototype from '@/components/others/Modal';
-import { useDispatch } from 'react-redux';
 
 export const revalidate = true
 
@@ -36,8 +35,6 @@ export interface ProfileHeadProps {
 export type FileState = File | null;
 
 const Profile: React.FC = async () => {
-    const dispatch = useDispatch()
-
     const session: any = await auth();
     const user: UserType = await getUserByEmail(session.user.email);
     if (user)

@@ -1,11 +1,6 @@
 'use client'
-import Image from 'next/image'
-import React, { useState } from 'react'
-import Link from 'next/link'
-import { profileData } from '../data/profileData'
-import { useDispatch, useSelector } from 'react-redux'
-import { setLoading } from '@/lib/features/loadingSlice'
-import { ProfileHeadProps, UserType } from '../../profile/Profile'
+import React from 'react'
+import { ProfileHeadProps } from '../../profile/Profile'
 import ProfileDropdown from './ProfileDropdown'
 
 export interface Session {

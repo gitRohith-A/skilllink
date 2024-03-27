@@ -53,15 +53,13 @@ router.get('/get-all-users', async (req: Request, res: Response) => {
         if (type) {
             query.type = type;
         }
-
+        
         if (isAdmin) {
             query.isAdmin = isAdmin;
         }
 
         const users = await User.find({ isAdmin: isAdmin })
             .select('-__v -verifyEmail -provider -password');
-
-        console.log(users)
 
         if (!users || users.length === 0) {
             return res.status(404).json({ error: "No users found matching the criteria" });
