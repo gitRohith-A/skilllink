@@ -5,7 +5,8 @@
  * @type {string[]}
  */
 export const publicRoutes = [
-    '/'
+    '/',
+    '/service'
 ]
 
 /**
