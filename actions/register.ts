@@ -13,10 +13,10 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         }
 
         // Destructure validated fields
-        const { email, password, name, occupation } = validatedFields.data;
+        const { email, password, name } = validatedFields.data;
 
         // Make API call to register user
-        const response = await axios.post('http://localhost:5000/auth/register', { email, password, name, occupation });
+        const response = await axios.post('http://localhost:5000/auth/register', { email, password, name });
 
         if (response.status === 200) {
             // Registration successful
