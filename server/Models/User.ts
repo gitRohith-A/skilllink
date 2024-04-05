@@ -6,8 +6,12 @@ export interface IUser extends Document {
     password?: string;
     date: Date;
     isAdmin?: string;
-    verifyEmail: Date;
-    image: string,
+    verifyEmail?: Date;
+    image?: string,
+    about: string,
+    backgrounImage?: String,
+    location?: string,
+    dob: Date,
     boardingStatus?: number;
     categories?: string;
     occupation?: string;
@@ -32,8 +36,15 @@ const UserSchema: Schema = new Schema({
         default: Date.now
     },
     image: String,
+    backgrounImage: String,
     provider: String,
-    boardingStatus: Number,
+    dob: Date,
+    aboutMe: String,
+    location: String,
+    boardingStatus: {
+        type: Number,
+        default: 1
+    },
     categories: String,
     occupation: String,
     otps: String

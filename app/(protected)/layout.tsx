@@ -1,5 +1,6 @@
 
 import React, { Suspense } from 'react';
+import Loading from '../../components/others/loading';
 
 // Lazy load Sidebar component
 const SideBar = React.lazy(() => import('@/components/dashboard/Sidebar/sideBar'));
@@ -8,7 +9,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     return (
         <React.Fragment>
             <Suspense fallback={
-                <div>Loading Sidebar...</div>
+                <Loading />
             }>
                 <SideBar >
                     {children}

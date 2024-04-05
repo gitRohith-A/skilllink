@@ -5,7 +5,8 @@
  * @type {string[]}
  */
 export const publicRoutes = [
-    '/'
+    '/',
+    '/service'
 ]
 
 /**
@@ -29,4 +30,10 @@ export const apiAuthPrefix = '/api/auth'
  * Router that is landing page for the logged in user
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = '/dashboard'
+export const DEFAULT_LOGIN_REDIRECT = '/'
+
+
+/**
+ * Revalidate dynamic fetch data
+ */
+export const dynamic = 'auto'

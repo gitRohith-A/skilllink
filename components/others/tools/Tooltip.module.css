@@ -1,0 +1,25 @@
+/* components/Tooltip.module.css */
+.tooltipContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: max-content;
+    background-color: #333;
+    font-size: 8px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltipContainer:hover .tooltip {
+    visibility: visible;
+}

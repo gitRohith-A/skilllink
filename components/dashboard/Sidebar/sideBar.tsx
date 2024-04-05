@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React from 'react'
 import Profile from './Elements/Profile';
 import SideNav from './Elements/SideNav';
+import { UserType } from '../profile/Profile';
+import { getUserByEmail } from '@/Functions/User';
 
 async function SideBar({
     children,
@@ -10,9 +12,10 @@ async function SideBar({
     children: React.ReactNode;
 }>) {
     const session: any = await auth()
+    const user: UserType = await getUserByEmail(session.user.email)
 
     return (
-        <div className='flex'>
+        <>
             <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-100 dark:bg-white dark:border-gray-200">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
@@ -27,17 +30,17 @@ async function SideBar({
                                 Skill <span className='text-orange-600'>Link</span>
                             </Link>
                         </div>
-                        <Profile session={session} />
+                        <Profile user={user} />
                     </div>
                 </div>
             </nav>
 
-            <SideNav />
+            <SideNav user={user} />
 
-            <div className="mx-5 mt-12 p-4 sm:ml-64">
+            <div className="mt-12 p-4 pt-6 sm:ml-64">
                 {children}
             </div>
-        </div>
+        </>
     )
 }
 
