@@ -60,7 +60,4 @@ export const RegisterSchema = z.object({
     password: z.string().min(6, {
         message: "password should be 6 characters minimum",
     }),
-    occupation: z.string().min(1, {
-        message: "occupation is required",
-    }),
 });
