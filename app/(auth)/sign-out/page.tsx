@@ -8,7 +8,7 @@ async function page() {
         <div className='w-full h-screen flex justify-center items-center'>
             <div className="container px-5">
 
-                <div className="text-orange-500 text-3xl mb-5">
+                <div className="text--500 text-3xl mb-5">
                     Do you want to sign out?
                 </div>
 
@@ -19,7 +19,7 @@ async function page() {
                     <Link type="button" href={'/dashboard'} className='rounded-full bg-blue-600 text-white hover:bg-blue-500 px-4 py-3 me-4'>
                         Go back
                     </Link>
-                    <button type="submit" className='rounded-full bg-orange-600/50 text-white hover:bg-orange-300 px-4 py-3'>
+                    <button type="submit" className='rounded-full bg--600/50 text-white hover:bg--300 px-4 py-3'>
                         Sign out
                     </button>
                 </form>
