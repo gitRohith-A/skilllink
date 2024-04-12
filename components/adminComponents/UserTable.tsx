@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import profile from '../public/home/profile.png'
+import profile from '../../public/home/profile.png'
 import Image from 'next/image';
 import { FaCheck } from "react-icons/fa";
 import { ImCross } from "react-icons/im";

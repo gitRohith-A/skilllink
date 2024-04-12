@@ -1,4 +1,4 @@
-import UserTable from '@/components/UserTable';
+import UserTable from '@/components/adminComponents/UserTable';
 import axios from 'axios'
 import React from 'react'
 
@@ -19,7 +19,7 @@ async function page() {
   } else {
     return (
       <>
-        error
+        No user Signed in
       </>
     )
   }
