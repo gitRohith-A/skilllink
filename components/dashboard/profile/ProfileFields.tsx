@@ -5,6 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { useDispatch } from 'react-redux';
 import { setModal } from '@/lib/features/modalSlice';
 import { keyLabelMap } from '@/components/others/data/inputListsTypes';
+import Link from 'next/link';
 
 export interface ModalType {
     type: number,
@@ -44,6 +45,10 @@ const ProfileFields: React.FC<ProfileHeadProps> = ({ user }) => {
                         <ul className="mt-2 text-gray-700">
                             {renderUserInfo()}
                         </ul>
+
+                        <div  className='mt-3'>
+                            <Link href={'/user/req-enterprises'} className=' px-4 py-2 rounded-md border-2 hover:drop-shadow-lg bg-prime justify-center items-center gap-1 inline-flex text-white'>Register For Enterpries</Link>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-col w-full 2xl:w-2/3">

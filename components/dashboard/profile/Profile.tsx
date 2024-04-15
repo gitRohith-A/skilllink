@@ -40,11 +40,9 @@ const Profile: React.FC = async () => {
     if (user)
         return (
             <React.Fragment>
-                <Suspense fallback={<Loading />}>
                     <ProfileHead user={user} />
                     <ProfileFields user={user} />
                     <ModalPrototype user={user} />
-                </Suspense>
             </React.Fragment>
         );
     else return null;

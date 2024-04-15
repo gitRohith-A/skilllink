@@ -12,13 +12,9 @@ async function Layout({ children }: { children: React.ReactNode }) {
     if (session?.user.role === 'admin') {
         return (
             <React.Fragment>
-                <Suspense fallback={
-                    <Loading />
-                }>
                     <SideBar >
                         {children}
                     </SideBar>
-                </Suspense>
             </React.Fragment>
         );
     } else {
