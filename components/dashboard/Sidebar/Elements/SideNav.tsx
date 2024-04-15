@@ -18,7 +18,7 @@ function SideNav({ user }: ProfileHeadProps) {
         ['admin', sideNavDataAdmin],
         ['enterprise', sideNavDataEnterprises],
     ]);
-    const currentSideNavData = sideNavDataMap.get(user.isAdmin || '') || [];
+    const currentSideNavData = sideNavDataMap.get(user?.isAdmin || '') || [];
 
     const handleToggleSubList = (link: string) => {
         setOpenSubMenu(link === openSubMenu ? null : link);

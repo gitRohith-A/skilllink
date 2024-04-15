@@ -43,6 +43,23 @@ export const sideNavDataAdmin = [
             },
         ],
     },
+    {
+        label: 'Category',
+        icon: <RiArrowDownSLine />,
+        link: '/admin/category',
+        subList: [
+            {
+                label: 'Create Category',
+                icon: <MdDashboard />,
+                link: '/admin/category/create',
+            },
+            {
+                label: 'Category List',
+                icon: <MdDashboard />,
+                link: '/admin/category',
+            },
+        ], 
+    }
 ];
 
 export const sideNavDataEnterprises = [

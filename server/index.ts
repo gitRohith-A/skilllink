@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/auth', require('./routers/auth.controller'))
 app.use('/users', require('./routers/user.controller'))
+app.use('/category', require('./routers/category.controller'))
 
 app.listen(port, () => {
     console.log(`Server is running at Port:${port}`);
