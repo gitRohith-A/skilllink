@@ -19,21 +19,21 @@ function CreateCategory() {
     metaTitle: '',
     metaDescription: ''
   });
-  
+
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)  => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    let slugValue = value.toLowerCase().replace(/\s+/g, '-'); 
+    let slugValue = value.toLowerCase().replace(/\s+/g, '-');
     slugValue = slugValue.replace(/[^a-zA-Z0-9-_]/g, '-');
-    
+
     setFormData({
       ...formData,
       [name]: value,
       slug: slugValue
     });
   };
-  
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -89,36 +89,38 @@ function CreateCategory() {
   };
 
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="flex justify-center ">
       <head>
         <title>Create Category - {formData.metaTitle || formData.name}</title>
         <meta name="description" content={formData.metaDescription || `Create a new category with the name ${formData.name} and slug ${formData.slug}`} />
       </head>
-      <h2 className="text-2xl font-bold mb-4">Create Category</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="icon" className="block text-sm font-medium text-gray-700">Icon</label>
-          <input type="file" id="icon" name="icon" onChange={handleFileChange} className="mt-1 p-2 border rounded-md w-full" />
+      <form onSubmit={handleSubmit} className='grid grid-cols-10 gap-10'>
+        <div className="mb-4 col-span-5 ">
+          <label htmlFor="icon" className="block text-lg font-bold text-center mb-6 text-gray-700">Icon</label>
+          <input type="file" id="icon" name="icon" onChange={handleFileChange} className=" border-2  border-dotted border-blue-400 rounded-md w-full h-[90%]" />
         </div>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
+        <div className=' col-span-5'>
+          <h2 className="text-2xl font-bold mb-4">Create Category</h2>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="slug" className="block text-sm font-medium text-gray-700">Slug</label>
+            <input type="text" id="slug" name="slug" value={formData.slug} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700">Meta Title</label>
+            <input type="text" id="metaTitle" name="metaTitle" value={formData.metaTitle} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700">Meta Description</label>
+            <textarea id="metaDescription" name="metaDescription" value={formData.metaDescription} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full"></textarea>
+          </div>
+          <button type="submit" disabled={loading} className={`${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500'} text-white px-4 py-2 rounded-md`}>
+            {loading ? 'Creating...' : 'Create'}
+          </button>
         </div>
-        <div className="mb-4">
-          <label htmlFor="slug" className="block text-sm font-medium text-gray-700">Slug</label>
-          <input type="text" id="slug" name="slug" value={formData.slug} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700">Meta Title</label>
-          <input type="text" id="metaTitle" name="metaTitle" value={formData.metaTitle} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700">Meta Description</label>
-          <textarea id="metaDescription" name="metaDescription" value={formData.metaDescription} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full"></textarea>
-        </div>
-        <button type="submit" disabled={loading} className={`${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500'} text-white px-4 py-2 rounded-md`}>
-          {loading ? 'Creating...' : 'Create'}
-        </button>
       </form>
     </div>
   );
