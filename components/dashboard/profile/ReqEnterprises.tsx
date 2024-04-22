@@ -11,7 +11,7 @@ interface InputField {
 
 function ReqEnterprises({ session }: { session: any }) {
   const [formData, setFormData] = useState<{ [key: string]: string | File }>({});
-  console.log(session)
+
   const inputFields: InputField[] = [
     { name: 'enterpriseName', label: 'Enterprise Name', type: 'text' },
     { name: 'phoneNo', label: 'Phone No', type: 'tel' },

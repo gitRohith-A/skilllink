@@ -18,10 +18,12 @@ router.post('/', upload.single('icon'), async (req: Request, res: Response) => {
     }
 });
 
-// Read All Enterprises
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (req, res) => {
     try {
-        const enterprises = await EnterpriseModel.find();
+        const query = req.query;
+
+        const enterprises = await EnterpriseModel.find(query);
+
         res.status(200).json(enterprises);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
@@ -46,7 +48,7 @@ router.put('/:id', upload.single('icon'), async (req: Request, res: Response) =>
     try {
         const enterpriseData: Enterprise = req.body as Enterprise;
         if (req.file) {
-            enterpriseData.icon = req.file.path; 
+            enterpriseData.icon = req.file.path;
         }
         const updatedEnterprise = await EnterpriseModel.findByIdAndUpdate(req.params.id, enterpriseData, { new: true });
         if (!updatedEnterprise) {
@@ -71,4 +73,4 @@ router.delete('/:id', async (req: Request, res: Response) => {
     }
 });
 
-module.exports= router;
+module.exports = router;

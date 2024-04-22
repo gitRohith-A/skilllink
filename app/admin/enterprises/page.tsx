@@ -14,12 +14,12 @@ async function page() {
 
   if (data) {
     return (
-      <UserTable data={data} heading='Enterprises' />
+      <UserTable data={data} heading='Users' />
     )
   } else {
     return (
       <>
-        No Enterprises signed in
+        No Enterprise Signed in
       </>
     )
   }

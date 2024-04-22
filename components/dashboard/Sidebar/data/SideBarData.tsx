@@ -17,7 +17,7 @@ export const sideNavDataAdmin = [
             {
                 label: 'User List',
                 icon: <MdDashboard />,
-                link: '/admin/users-list',
+                link: '/admin/users',
             },
             {
                 label: 'Notifications',
@@ -28,13 +28,13 @@ export const sideNavDataAdmin = [
     },
     {
         label: 'Enterprises category',
+        link:'/admin/enterprises',
         icon: <RiArrowDownSLine />,
-        link: '/admin/enterprises-list',
         subList: [
             {
                 label: 'Enterprises List',
                 icon: <MdDashboard />,
-                link: '/admin/enterprises-list',
+                link: '/admin/enterprises',
             },
             {
                 label: 'Notifications',
