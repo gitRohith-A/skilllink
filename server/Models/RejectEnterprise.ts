@@ -1,24 +1,6 @@
 import { ObjectId } from 'mongodb';
 import mongoose, { Document } from 'mongoose';
-
-export interface Enterprise extends Document {
-  enterpriseName?: string;
-  icon?:string;
-  phoneNo?: string;
-  gstNumber?: string;
-  locationLink?: string;
-  emailAddress?: string;
-  websiteURL?: string;
-  contactPersonName?: string;
-  industryType?: string;
-  numberOfEmployees?: number;
-  yearEstablished?: number;
-  address?: string;
-  additionalNotes?: string;
-  adminnote?: string;
-  approved?:boolean;
-  user_id?:ObjectId;
-}
+import { Enterprise } from './Enterprise';
 
 const enterpriseSchema = new mongoose.Schema({
   icon:{type:String},
@@ -42,6 +24,6 @@ const enterpriseSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-const EnterpriseModel = mongoose.model<Enterprise>('Enterprise', enterpriseSchema);
+const RejectedEnterpriseModel = mongoose.model<Enterprise>('RejectedEnterprise', enterpriseSchema);
 
-export default EnterpriseModel;
+export default RejectedEnterpriseModel;

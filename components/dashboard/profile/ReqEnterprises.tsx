@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface InputField {
   name: string;
@@ -11,7 +12,7 @@ interface InputField {
 
 function ReqEnterprises({ session }: { session: any }) {
   const [formData, setFormData] = useState<{ [key: string]: string | File }>({});
-
+  const router = useRouter();
   const inputFields: InputField[] = [
     { name: 'enterpriseName', label: 'Enterprise Name', type: 'text' },
     { name: 'phoneNo', label: 'Phone No', type: 'tel' },
@@ -69,7 +70,8 @@ function ReqEnterprises({ session }: { session: any }) {
       }
 
       const responseData = await response.json();
-      console.log('Response:', responseData);
+      router.push('/profile')
+
       setFormData({});
     } catch (error) {
       console.error('Error:', error);

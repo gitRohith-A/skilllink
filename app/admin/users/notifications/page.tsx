@@ -1,6 +1,10 @@
 'use client'
 import Popup from '@/components/adminComponents/Table/Popup';
+import Loading from '@/components/others/loading';
 import React, { useEffect, useState } from 'react';
+import { FaEye } from "react-icons/fa";
+import { BiDetail } from "react-icons/bi";
+import { GoVerified } from "react-icons/go";
 
 export interface EnterpriseData {
     _id: string;
@@ -8,6 +12,10 @@ export interface EnterpriseData {
     contactPersonName: string;
     phoneNo: string;
     emailAddress: string;
+    icon: string;
+    createdAt: Date;
+    user_id: any;
+    adminNote: string; // Add adminNote field
 }
 
 async function fetchData(): Promise<EnterpriseData[]> {
@@ -29,14 +37,17 @@ async function fetchData(): Promise<EnterpriseData[]> {
 }
 
 
-
 function Page() {
     const [data, setData] = useState<EnterpriseData[]>([]);
+    const [loading, setLoading] = useState<boolean>(false)
     const [selectedEnterprise, setSelectedEnterprise] = useState<EnterpriseData | null>(null);
+    const [adminNote, setAdminNote] = useState<string>('');
 
     useEffect(() => {
         async function getData() {
+            setLoading(true)
             const result = await fetchData();
+            setLoading(false)
             setData(result);
         }
         getData();
@@ -44,47 +55,98 @@ function Page() {
 
     const openPopup = (enterprise: EnterpriseData) => {
         setSelectedEnterprise(enterprise);
+        setAdminNote(enterprise.adminNote || '');
     };
 
     const closePopup = () => {
         setSelectedEnterprise(null);
     };
 
+   
     return (
         <div>
-            <h2 className="text-2xl font-bold mx-4 my-2">Unapproved Enterprises</h2>
-            <div className="overflow-x-auto mx-4">
-                <table className="min-w-full table-auto">
-                    <thead>
-                        <tr>
-                            <th className="px-4 py-2">Enterprise Name</th>
-                            <th className="px-4 py-2">Contact Person Name</th>
-                            <th className="px-4 py-2">Phone No</th>
-                            <th className="px-4 py-2">Email Address</th>
-                            <th className="px-4 py-2">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item, index) => (
-                            <tr key={item._id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
-                                <td className="border px-4 py-2">{item.enterpriseName}</td>
-                                <td className="border px-4 py-2">{item.contactPersonName}</td>
-                                <td className="border px-4 py-2">{item.phoneNo}</td>
-                                <td className="border px-4 py-2">{item.emailAddress}</td>
-                                <td className="border px-4 py-2">
-                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => openPopup(item)}>
-                                        View
-                                    </button>
-                                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">
-                                        Reject
-                                    </button>
-                                </td>
+            <div className='bg-[#F1F1F1] relative overflow-x-auto shadow-md sm:rounded-lg'>
+                <h1 className='mx-5 my-4 text-2xl font-semibold'>Unapproved Enterprises</h1>
+                <div className=" ">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead className="text-lg">
+                            <tr className='border-b-2'>
+                                <th scope="col" className="px-6 py-3">
+                                    Icon
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Enterprise Name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Contact Person Name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Phone No
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Email Address
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Date
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Action
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+
+                        {loading ? <Loading />
+                            :
+                            <tbody>
+                                {data.map(item => (
+                                    <tr className="bg-[#F1F1F1] border-b" key={item._id}>
+                                        <th scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap ">
+                                            {item.icon ?
+                                                <img src={process.env.NEXT_PUBLIC_SERVER_URL + "/" + item.icon} alt="-" className='rounded-full' height={50} width={50} />
+                                                : <img src='/' alt="-" className='rounded-full' height={50} width={50} />
+                                            }
+                                        </th>
+                                        <td className="px-6 py-4 capitalize">
+                                            {item.enterpriseName}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {item.contactPersonName}
+                                        </td>
+                                        <td className="px-6 py-4 capitalize">
+                                            {item.phoneNo}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {item.emailAddress}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {new Date(item.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
+                                        </td>
+
+                                        <td className="px-6 py-4 flex items-cente">
+                                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => openPopup(item)}>
+                                                <FaEye size={20} />
+                                            </button>
+                                            <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2" onClick={() => openPopup(item.user_id)}>
+                                                <BiDetail size={20} />
+                                            </button>
+                                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">
+                                                <GoVerified size={20} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        }
+
+                    </table>
+                </div>
             </div>
-            {selectedEnterprise && <Popup data={selectedEnterprise} closePopup={closePopup} />}
+            {selectedEnterprise && (
+                <Popup
+                    data={selectedEnterprise}
+                    closePopup={closePopup}
+                />
+            )}
         </div>
     );
 }

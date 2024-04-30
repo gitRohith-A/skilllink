@@ -21,7 +21,7 @@ function UserTable({ data, heading }: { data: any, heading: string }) {
                 <h1 className='mx-5 my-4 text-2xl font-semibold'>{heading}</h1>
                 <div className=" ">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                        <thead className="text-xs">
+                        <thead className="text-lg">
                             <tr className='border-b-2'>
                                 <th scope="col" className="px-6 py-3">
                                     Photo
@@ -38,9 +38,9 @@ function UserTable({ data, heading }: { data: any, heading: string }) {
                                 <th scope="col" className="px-6 py-3">
                                     Date
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                {/* <th scope="col" className="px-6 py-3">
                                     Action
-                                </th>
+                                </th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -64,10 +64,10 @@ function UserTable({ data, heading }: { data: any, heading: string }) {
                                     <td className="px-6 py-4">
                                         {new Date(ele.date).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}
                                     </td>
-                                    <td className="px-6 py-4 flex items-cente">
+                                    {/* <td className="px-6 py-4 flex items-cente">
                                         <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline mt-4 me-2"><FaCheck size={15} /></a>
                                         <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline mt-4 ms-2"><ImCross size={15} /></a>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>
