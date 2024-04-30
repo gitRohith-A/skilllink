@@ -3,7 +3,7 @@ import mongoose, { Document } from 'mongoose';
 
 export interface Enterprise extends Document {
   enterpriseName?: string;
-  icon?:string;
+  icon?: string;
   phoneNo?: string;
   gstNumber?: string;
   locationLink?: string;
@@ -16,12 +16,13 @@ export interface Enterprise extends Document {
   address?: string;
   additionalNotes?: string;
   adminnote?: string;
-  approved?:boolean;
-  user_id?:ObjectId;
+  approved?: boolean;
+  user_id?: ObjectId;
+  categories?: Array<Array<any>>;
 }
 
 const enterpriseSchema = new mongoose.Schema({
-  icon:{type:String},
+  icon: { type: String },
   enterpriseName: { type: String },
   phoneNo: { type: String },
   gstNumber: { type: String },
@@ -34,11 +35,12 @@ const enterpriseSchema = new mongoose.Schema({
   yearEstablished: { type: Number },
   address: { type: String },
   additionalNotes: { type: String },
+  categories: { type: Array },
   adminnote: { type: String },
-  approved:{type:Boolean},
-  user_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+  approved: { type: Boolean },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users'
   }
 }, { timestamps: true });
 

@@ -1,6 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/others/loading';
+import { MultiSelect } from "react-multi-select-component";
+import { fetchCategory } from '@/Functions/fetchCategory';
 
 interface InputField {
   name: string;
@@ -12,13 +15,18 @@ interface InputField {
 
 function ReqEnterprises({ session }: { session: any }) {
   const [formData, setFormData] = useState<{ [key: string]: string | File }>({});
+  const [loading, setLoading] = useState<boolean>(true)
+  const [category, setCategory] = useState<Object>({})
+  const [selectedCategories, setSelectedCategories] = useState<any[]>([]);
   const router = useRouter();
+
   const inputFields: InputField[] = [
     { name: 'enterpriseName', label: 'Enterprise Name', type: 'text' },
     { name: 'phoneNo', label: 'Phone No', type: 'tel' },
     { name: 'gstNumber', label: 'GST Number', type: 'text' },
     { name: 'locationLink', label: 'Location Link', type: 'text' },
     { name: 'emailAddress', label: 'Email Address', type: 'email' },
+    { name: 'categories', label: 'Categories', type: 'select' },
     { name: 'websiteURL', label: 'Website URL', type: 'url' },
     { name: 'contactPersonName', label: 'Contact Person Name', type: 'text' },
     { name: 'industryType', label: 'Industry Type', type: 'text' },
@@ -28,6 +36,7 @@ function ReqEnterprises({ session }: { session: any }) {
     { name: 'additionalNotes', label: 'Additional Notes', type: 'text', textarea: true },
     { name: 'icon', label: 'Icon', type: 'file' },
   ];
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -48,65 +57,111 @@ function ReqEnterprises({ session }: { session: any }) {
     setFormData({ ...filteredFormData, [name]: newValue });
   };
 
+  useEffect(() => {
+    fetchCategory()
+      .then(data => {
+        setCategory(data);
+        inputFields.find(field => field.name === 'categories')!.options = data.map((category: any) => ({
+          value: category._id,
+          label: category.name,
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching categories:', error);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+
+  const handleMultiSelectChange = (selectedItems: any[]) => {
+    setSelectedCategories(selectedItems);
+    setFormData({ ...formData, categories: selectedItems.map(item => item.value).join(',') });
+  };
 
   const handleSubmit = async () => {
     try {
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
-        formDataToSend.append(key, value);
+        if (key === 'categories' && typeof value === 'string') {
+          const categoriesArray = value.split(',');
+          categoriesArray.forEach((category, index) => {
+            formDataToSend.append(`categories[${index}]`, category);
+          });
+        } else {
+          formDataToSend.append(key, value);
+        }
       });
 
       formDataToSend.append('user_id', session.user.id.toString());
       formDataToSend.append('approved', 'false');
       formDataToSend.append('adminnote', '');
-
+      setLoading(true)
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise`, {
         method: 'POST',
         body: formDataToSend,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit data');
+        alert('Failed to submit data');
       }
 
       const responseData = await response.json();
-      router.push('/profile')
+
+      router.push('/user/profile')
+
+      console.log(formData)
 
       setFormData({});
     } catch (error) {
+      setLoading(false)
       console.error('Error:', error);
     }
   };
 
+
   return (
     <div>
       <h2 className='text-2xl font-bold mx-24 my-4'>Register as Enterprises</h2>
-      <div className="mx-24 mb-24">
-        <div className="grid grid-cols-2 gap-4 w-100">
-          {inputFields.map((field, index) => (
-            <div key={index} className="mb-4">
-              <label htmlFor={field.name} className="block text-gray-700">{field.label}</label>
-              {field.type === 'select' ? (
-                <select id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange}>
-                  {field.options && field.options.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-              ) : field.textarea ? (
-                <textarea id={field.name} name={field.name} rows={4} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange}></textarea>
-              ) : field.type === 'file' ? (
-                <input type={field.type} id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange} />
-              ) : (
-                <input type={field.type} id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange} />
-              )}
-            </div>
-          ))}
-        </div>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+      {loading ? <Loading /> :
+        <div className="mx-24 mb-24">
+          <div className="grid grid-cols-2 gap-4 w-100">
+            {inputFields.map((field, index) => (
+              <div key={index} className="mb-4">
+                <label htmlFor={field.name} className="block text-gray-700">{field.label}</label>
+                {field.type === 'select' ? (
+                  field.name === 'categories' ? (
+                    <MultiSelect
+                      options={category.map((category: any) => ({
+                        value: category._id,
+                        label: category.name,
+                      }))}
+                      value={selectedCategories}
+                      onChange={handleMultiSelectChange}
+                      labelledBy={"Select"}
+                    />
+                  ) : (
+                    <select id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange}>
+                      {field.options && field.options.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                  )
+                ) : field.textarea ? (
+                  <textarea id={field.name} name={field.name} rows={4} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange}></textarea>
+                ) : field.type === 'file' ? (
+                  <input type={field.type} id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange} />
+                ) : (
+                  <input type={field.type} id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange} />
+                )}
+              </div>
+            ))}
+          </div>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>
+            Submit
+          </button>
+        </div>}
     </div>
+
   );
 }
 

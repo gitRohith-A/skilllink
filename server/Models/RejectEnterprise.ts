@@ -16,6 +16,7 @@ const enterpriseSchema = new mongoose.Schema({
   yearEstablished: { type: Number },
   address: { type: String },
   additionalNotes: { type: String },
+  categories: { type: Array },
   adminnote: { type: String },
   approved:{type:Boolean},
   user_id:{

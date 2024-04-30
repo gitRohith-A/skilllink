@@ -43,6 +43,10 @@ function Page() {
     const [selectedEnterprise, setSelectedEnterprise] = useState<EnterpriseData | null>(null);
     const [adminNote, setAdminNote] = useState<string>('');
 
+    function rejects() {
+        console.log('Moved')
+    }
+
     useEffect(() => {
         async function getData() {
             setLoading(true)
@@ -51,18 +55,18 @@ function Page() {
             setData(result);
         }
         getData();
-    }, []);
+    }, [rejects()]);
 
     const openPopup = (enterprise: EnterpriseData) => {
         setSelectedEnterprise(enterprise);
         setAdminNote(enterprise.adminNote || '');
     };
 
-    const closePopup = () => {
+    function closePopup() {
         setSelectedEnterprise(null);
     };
 
-   
+
     return (
         <div>
             <div className='bg-[#F1F1F1] relative overflow-x-auto shadow-md sm:rounded-lg'>
@@ -145,6 +149,7 @@ function Page() {
                 <Popup
                     data={selectedEnterprise}
                     closePopup={closePopup}
+                    rejects={rejects}
                 />
             )}
         </div>

@@ -14,9 +14,12 @@ router.post('/', upload.single('icon'), async (req: Request, res: Response) => {
             enterpriseData.icon = req.file.path;
         }
         const newEnterprise = await EnterpriseModel.create(enterpriseData);
-        res.status(201).json(newEnterprise);
+
+        await User.findOneAndUpdate(newEnterprise.user_id, { enterpriseApproval: 'pending' })
+
+        res.status(201).json({ success: true, newEnterprise });
     } catch (error: any) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
@@ -76,10 +79,8 @@ router.delete('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// Define your new route
 router.post('/move/:id', async (req: Request, res: Response) => {
     try {
-        // Find the document by ID from the source collection
         const enterprise = await EnterpriseModel.findByIdAndUpdate(req.params.id, { adminnote: req.body.adminnote });
 
         if (!enterprise) {
@@ -107,7 +108,14 @@ router.post('/move/:id', async (req: Request, res: Response) => {
             user_id: enterprise.user_id
         });
 
-        await User.findByIdAndUpdate(enterprise.user_id, { $push: { notification: enterprise.adminnote } });
+        await User.findByIdAndUpdate(
+            enterprise.user_id,
+            {
+                $set: { enterpriseApproval: false },
+                $push: { notification: { text: enterprise.adminnote } }
+            }
+        );
+
 
         res.status(200).json({ message: 'Data moved successfully', newEnterprise });
     } catch (error: any) {

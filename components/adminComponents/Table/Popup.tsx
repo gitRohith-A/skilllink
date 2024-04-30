@@ -4,10 +4,11 @@ import { useState } from "react";
 interface PopupProps {
     data: EnterpriseData;
     closePopup: () => void;
+    rejects: () => void;
 
 }
 
-function Popup({ data, closePopup }: PopupProps) {
+function Popup({ data, closePopup, rejects }: PopupProps) {
 
     const [newAdminNote, setNewAdminNote] = useState('');
 
@@ -107,6 +108,7 @@ function Popup({ data, closePopup }: PopupProps) {
                             onClick={() => {
                                 handleSubmit(data._id);
                                 closePopup();
+                                rejects();
                             }}
                             className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 disabled:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm "
                             disabled={newAdminNote === '' ? true : false}
