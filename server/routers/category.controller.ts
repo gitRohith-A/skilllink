@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', upload.single('icon'), async (req: Request, res: Response) => {
   try {
     const { name, slug, services } = req.body;
-    const icon = req.file ? req.file.path : ''; 
+    const icon = req.file ? req.file.path : '';
     const category = new Category({
       name,
       slug,
@@ -26,7 +26,7 @@ router.post('/', upload.single('icon'), async (req: Request, res: Response) => {
 router.put('/:id', upload.single('icon'), async (req: Request, res: Response) => {
   try {
     const { name, slug, services } = req.body;
-    const icon = req.file ? req.file.path : ''; 
+    const icon = req.file ? req.file.path : '';
     const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {
       name,
       slug,
@@ -45,7 +45,8 @@ router.put('/:id', upload.single('icon'), async (req: Request, res: Response) =>
 // READ
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find().select('name slug _id')
+
     res.json({ success: true, categories });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Internal Server Error' });

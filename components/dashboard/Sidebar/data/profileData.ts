@@ -8,6 +8,10 @@ export const profileData = [
         link:'/user/settings'
     },
     {
+        label:'Notification',
+        link:'/user/notifications'
+    },
+    {
         label:'Sign Out',
         link:'/sign-out'
     }

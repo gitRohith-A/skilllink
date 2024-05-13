@@ -17,6 +17,8 @@ export interface IUser extends Document {
     occupation?: string;
     provider: string;
     otps?: string;
+    enterpriseApproval?: string;
+    notifications?: Array<Array<any>>;
 }
 
 const UserSchema: Schema = new Schema({
@@ -47,7 +49,9 @@ const UserSchema: Schema = new Schema({
     },
     categories: String,
     occupation: String,
-    otps: String
+    otps: String,
+    enterpriseApproval: String,
+    notification: Array
 });
 
 const User = mongoose.model('users', UserSchema);

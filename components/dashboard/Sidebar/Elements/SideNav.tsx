@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ProfileHeadProps } from '../../profile/Profile';
 import { RiArrowDownSLine, RiArrowRightSLine } from 'react-icons/ri';
 import { sideNavDataEnterprises, sideNavData, sideNavDataAdmin } from '../data/SideBarData';
+import Link from 'next/link';
 
 interface SideNavItem {
     label: string;
@@ -16,7 +17,7 @@ function SideNav({ user }: ProfileHeadProps) {
     const sideNavDataMap = new Map<string, SideNavItem[]>([
         ['user', sideNavData],
         ['admin', sideNavDataAdmin],
-        ['enterprise', sideNavDataEnterprises],
+        ['enterprises', sideNavDataEnterprises],
     ]);
     const currentSideNavData = sideNavDataMap.get(user?.isAdmin || '') || [];
 
@@ -61,7 +62,7 @@ const SideNavItem: React.FC<SideNavItemProps> = ({ item, openSubMenu, handleTogg
                                     <div className="flex items-center p-2 text-gray-900 rounded-lg light:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                                         {subItem.icon}
                                         <span className="ms-3">
-                                            <a href={subItem.link}>{subItem.label}</a>
+                                            <Link href={subItem.link}>{subItem.label}</Link>
                                         </span>
                                     </div>
                                 </li>
@@ -73,7 +74,7 @@ const SideNavItem: React.FC<SideNavItemProps> = ({ item, openSubMenu, handleTogg
                 <div className="flex items-center p-2 text-gray-900 rounded-lg light:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
                     {item.icon}
                     <span className="ms-3">
-                        <a href={item.link}>{item.label}</a>
+                        <Link href={item.link}>{item.label}</Link>
                     </span>
                 </div>
             )}
@@ -81,4 +82,4 @@ const SideNavItem: React.FC<SideNavItemProps> = ({ item, openSubMenu, handleTogg
     );
 };
 
-export default SideNav;
+export default SideNav; 

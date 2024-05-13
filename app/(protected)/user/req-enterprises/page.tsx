@@ -6,9 +6,9 @@ async function page() {
   const session: any = await auth();
   
   return (
-    <div>
+    <>
       <ReqEnterprises session={session}/>
-    </div>
+    </>
   )
 }
 
