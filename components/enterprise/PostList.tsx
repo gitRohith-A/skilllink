@@ -1,10 +1,11 @@
 'use client'
-import Popup from '@/components/adminComponents/Table/Popup';
+import Popup from '@/components/enterprise/Popup';
 import Loading from '@/components/others/loading';
 import React, { useEffect, useState } from 'react';
 import { FaEye } from "react-icons/fa";
 import { BiDetail } from "react-icons/bi";
 import { GoVerified } from "react-icons/go";
+import { UserType } from '../dashboard/profile/Profile';
 
 export interface EnterpriseData {
     _id: string;
@@ -16,11 +17,15 @@ export interface EnterpriseData {
     createdAt: Date;
     user_id: any;
     adminNote: string;
+    description?: string;
+    discountPrice?: string;
+    priceDescription?: string;
+    rating: string
 }
 
-async function fetchData(): Promise<EnterpriseData[]> {
+async function fetchData(id: any): Promise<EnterpriseData[]> {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise?approved=false`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/posts/${id}`, {
             method: 'GET',
         });
 
@@ -39,7 +44,7 @@ async function fetchData(): Promise<EnterpriseData[]> {
 
 
 
-function Page() {
+function Page({ params }: { params: UserType }) {
     const [data, setData] = useState<EnterpriseData[]>([]);
     const [loading, setLoading] = useState<boolean>(false)
     const [selectedEnterprise, setSelectedEnterprise] = useState<EnterpriseData | null>(null);
@@ -47,10 +52,11 @@ function Page() {
     function rejects() {
     }
 
+
     useEffect(() => {
         async function getData() {
             setLoading(true)
-            const result = await fetchData();
+            const result = await fetchData(params.id);
             setLoading(false)
             setData(result);
         }
@@ -66,7 +72,7 @@ function Page() {
     };
 
     const updateData = async () => {
-        const newData = await fetchData();
+        const newData = await fetchData(params.id);
         setData(newData);
     };
 
@@ -83,7 +89,7 @@ function Page() {
                 throw new Error('Failed to fetch data');
             }
 
-            const newData = await fetchData();
+            const newData = await fetchData(params.id);
             setData(newData);
         } catch (error) {
             console.error('Error:', error);
@@ -97,29 +103,25 @@ function Page() {
     return (
         <div>
             <div className='bg-[#F1F1F1] relative overflow-x-auto shadow-md sm:rounded-lg'>
-                <h1 className='mx-5 my-4 text-2xl font-semibold'>Unapproved Enterprises</h1>
+                <h1 className='mx-5 my-4 text-2xl font-semibold'>Enterprises Posts</h1>
                 <div className=" ">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead className="text-lg">
+
                             <tr className='border-b-2'>
                                 <th scope="col" className="px-6 py-3">
-                                    Icon
+                                    Description
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Enterprise Name
+                                    Discount Price
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Contact Person Name
+                                    Price Description
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Phone No
+                                    Rating
                                 </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Email Address
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Date
-                                </th>
+
                                 <th scope="col" className="px-6 py-3">
                                     Action
                                 </th>
@@ -131,26 +133,18 @@ function Page() {
                             <tbody>
                                 {data.map(item => (
                                     <tr className="bg-[#F1F1F1] border-b" key={item._id}>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-500 whitespace-nowrap ">
-                                            {item.icon ?
-                                                <img src={process.env.NEXT_PUBLIC_SERVER_URL + "/" + item.icon} alt="-" className='rounded-full' height={50} width={50} />
-                                                : <img src='/' alt="-" className='rounded-full' height={50} width={50} />
-                                            }
-                                        </th>
+
                                         <td className="px-6 py-4 capitalize">
-                                            {item.enterpriseName}
+                                            {item.description}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {item.contactPersonName}
+                                            {item.discountPrice}
                                         </td>
                                         <td className="px-6 py-4 capitalize">
-                                            {item.phoneNo}
+                                            {item.priceDescription}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {item.emailAddress}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {new Date(item.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
+                                            {item.rating}
                                         </td>
 
                                         <td className="px-6 py-4 flex items-cente">

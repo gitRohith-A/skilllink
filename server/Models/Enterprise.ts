@@ -16,9 +16,10 @@ export interface Enterprise extends Document {
   address?: string;
   additionalNotes?: string;
   adminnote?: string;
+  posts?: Array<mongoose.Types.ObjectId>; // Modified type here
   approved?: boolean;
   user_id?: ObjectId;
-  categories?: Array<Array<any>>;
+  categories?: Array<mongoose.Types.ObjectId>; // Modified type here
 }
 
 const enterpriseSchema = new mongoose.Schema({
@@ -34,8 +35,9 @@ const enterpriseSchema = new mongoose.Schema({
   numberOfEmployees: { type: Number },
   yearEstablished: { type: Number },
   address: { type: String },
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'post' }], // Modified schema here
   additionalNotes: { type: String },
-  categories: { type: Array },
+  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }], // Modified schema here
   adminnote: { type: String },
   approved: { type: Boolean },
   user_id: {

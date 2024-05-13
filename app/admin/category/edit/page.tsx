@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation'
+import { TbCloudUpload } from "react-icons/tb";
 
 interface Category {
   _id: string;
@@ -50,9 +51,9 @@ const EditCategory: React.FC<EditCategoryProps> = ({ categories, setCategories }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    let slugValue = value.toLowerCase().replace(/\s+/g, '-'); 
+    let slugValue = value.toLowerCase().replace(/\s+/g, '-');
     slugValue = slugValue.replace(/[^a-zA-Z0-9-_]/g, '-');
-    
+
     setFormData({
       ...formData,
       [name]: value,
@@ -62,7 +63,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ categories, setCategories }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('_id', formData._id);
@@ -70,31 +71,31 @@ const EditCategory: React.FC<EditCategoryProps> = ({ categories, setCategories }
       formDataToSend.append('slug', formData.slug);
       formDataToSend.append('metaTitle', formData.metaTitle);
       formDataToSend.append('metaDescription', formData.metaDescription);
-      
+
       if (typeof formData.icon === 'string') {
       } else {
         formDataToSend.append('icon', formData.icon);
       }
-  
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/category/${id}`, {
         method: 'PUT',
         body: formDataToSend
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to update category');
       }
-  
+
       const updatedCategories = categories.map(category =>
         category._id === id ? formData : category
       );
       setCategories(updatedCategories);
-  
+
     } catch (error) {
       console.error('Error updating category:', error);
     }
   };
-  
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFormData({
@@ -108,10 +109,14 @@ const EditCategory: React.FC<EditCategoryProps> = ({ categories, setCategories }
     <div className="max-w-xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Edit Category</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="icon" className="block text-sm font-medium text-gray-700">Icon</label>
+        <div className="mb-4 flex items-center space-x-2">
+          <label htmlFor="icon" className="block text-sm font-medium text-gray-700 p-2 border-[3px] border-blue-600  rounded-full"><TbCloudUpload className='text-blue-600' size={30} /></label>
           <img src={typeof formData.icon === 'string' ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${formData.icon}` : URL.createObjectURL(formData.icon)} alt="" />
-          <input type="file" id="icon" name="icon" onChange={handleFileChange} className="mt-1 p-2 border rounded-md w-full" />
+          <input type="file" id="icon" name="icon" onChange={handleFileChange} className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+    file:bg-gray-50 file:border-0
+    file:me-4
+    file:py-3 file:px-4
+    dark:file:bg-neutral-700 dark:file:text-neutral-400" />
         </div>
         <div className="mb-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>

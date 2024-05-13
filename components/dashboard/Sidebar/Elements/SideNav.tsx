@@ -17,7 +17,7 @@ function SideNav({ user }: ProfileHeadProps) {
     const sideNavDataMap = new Map<string, SideNavItem[]>([
         ['user', sideNavData],
         ['admin', sideNavDataAdmin],
-        ['enterprise', sideNavDataEnterprises],
+        ['enterprises', sideNavDataEnterprises],
     ]);
     const currentSideNavData = sideNavDataMap.get(user?.isAdmin || '') || [];
 

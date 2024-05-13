@@ -1,5 +1,5 @@
-import { EnterpriseData } from "@/app/admin/users/notifications/page";
 import { useState } from "react";
+import { EnterpriseData } from "./PostList";
 
 interface PopupProps {
     data: EnterpriseData;
@@ -8,21 +8,23 @@ interface PopupProps {
 }
 
 function Popup({ data, closePopup, updateData }: PopupProps) {
+    const [editedData, setEditedData] = useState<Partial<EnterpriseData>>({});
 
-    const [newAdminNote, setNewAdminNote] = useState('');
-
-    const handleChangeAdminNote = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setNewAdminNote(event.target.value);
+    const handleInputChange = (key: keyof EnterpriseData, value: string | string[]) => {
+        setEditedData(prevState => ({
+            ...prevState,
+            [key]: value
+        }));
     };
 
-    async function handleSubmit(id: string) {
+    async function handleSubmit() {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/move/${id}`, {
-                method: 'POST',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/posts/${data._id}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ adminnote: newAdminNote }),
+                body: JSON.stringify(editedData),
             });
 
             updateData();
@@ -31,6 +33,7 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
             }
 
             const responseData = await response.json();
+            // Optionally, handle response data
         } catch (error) {
             console.error('Error:', error);
         }
@@ -49,7 +52,7 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                             <h3 className="text-xl leading-6 font-medium text-gray-900">{data.enterpriseName}</h3>
                             <div className="mt-4">
                                 <table className="min-w-full divide-y divide-gray-200">
-                                    <tbody className="bg-white divide-y divide-gray-200 ">
+                                    <tbody className="bg-white divide-y divide-gray-200">
                                         {Object.entries(data).map(([key, value]) => {
                                             if (['_id', 'createdAt', 'updatedAt', '__v', 'user_id'].includes(key)) {
                                                 return null;
@@ -62,27 +65,15 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                                                         </td>
                                                     </tr>
                                                 );
-                                            } else if (key === 'approved') {
-                                                return (
-                                                    <tr key={key}>
-                                                        <td className="px-6 py-4 whitespace-nowrap capitalizecd">{key}</td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">{value.toString()}</td>
-
-                                                    </tr>
-                                                );
-                                            } else if (key === 'adminnote') {
+                                            } else if (Array.isArray(value)) {
                                                 return (
                                                     <tr key={key}>
                                                         <td className="px-6 py-4 whitespace-nowrap capitalizecd">{key}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <textarea
-                                                                id="adminNote"
-                                                                name="adminNote"
-                                                                rows={3}
-                                                                value={newAdminNote}
-                                                                onChange={handleChangeAdminNote}
-                                                                className="mt-1 p-2 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md"
-                                                            ></textarea>
+                                                                value={(editedData[key] as string[])?.join('\n') || (value as string[]).join('\n')}
+                                                                onChange={(e) => handleInputChange(key as keyof EnterpriseData, e.target.value.split('\n'))}
+                                                            />
                                                         </td>
                                                     </tr>
                                                 );
@@ -91,7 +82,13 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                                                     return (
                                                         <tr key={key}>
                                                             <td className="px-6 py-4 whitespace-nowrap capitalizecd">{key}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">{value}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                                <input
+                                                                    type="text"
+                                                                    value={editedData[key] || value}
+                                                                    onChange={(e) => handleInputChange(key as keyof EnterpriseData, e.target.value)}
+                                                                />
+                                                            </td>
                                                         </tr>
                                                     );
                                             }
@@ -105,15 +102,14 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                         <button
                             type="button"
                             onClick={() => {
-                                handleSubmit(data._id);
+                                handleSubmit();
                                 closePopup();
                             }}
-                            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 disabled:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm "
-                            disabled={newAdminNote === '' ? true : false}
+                            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-500 text-base font-medium text-white hover:bg-green-700 disabled:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm "
                         >
-                            Reject
+                            Edit
                         </button>
-                        <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => closePopup()}>
+                        <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => closePopup()}>
                             Close
                         </button>
                     </div>

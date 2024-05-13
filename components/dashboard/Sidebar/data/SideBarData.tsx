@@ -64,8 +64,8 @@ export const sideNavDataAdmin = [
 
 export const sideNavDataEnterprises = [
     {
-        label: 'Users',
+        label: 'Posts',
         icon: <MdDashboard />,
-        link: '/admin/users-list',
+        link: '/enterprise/post-list',
     },
 ];

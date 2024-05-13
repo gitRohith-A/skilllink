@@ -149,7 +149,11 @@ function ReqEnterprises({ session }: { session: any }) {
                 ) : field.textarea ? (
                   <textarea id={field.name} name={field.name} rows={4} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange}></textarea>
                 ) : field.type === 'file' ? (
-                  <input type={field.type} id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange} />
+                  <input type={field.type} id={field.name} name={field.name} className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+                  file:bg-gray-50 file:border-0
+                  file:me-4
+                  file:py-3 file:px-4
+                  dark:file:bg-neutral-700 dark:file:text-neutral-400" onChange={handleChange} />
                 ) : (
                   <input type={field.type} id={field.name} name={field.name} className="mt-1 p-2 w-full border border-gray-300 rounded-md" onChange={handleChange} />
                 )}
