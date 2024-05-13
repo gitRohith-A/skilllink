@@ -1,10 +1,15 @@
+
 import React from 'react'
+import NewUser from './dash-elements/NewUser'
 
 async function dashboard() {
+
     return (
-        <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio voluptatum dolor dolore soluta sed, maiores sint sit praesentium? Praesentium eaque harum doloremque ducimus illum error expedita ad vitae commodi dolorum?
-        </div >
+        <>
+            <NewUser />
+        </>
+
+
     )
 }
 
