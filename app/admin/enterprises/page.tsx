@@ -1,4 +1,4 @@
-import UserTable from '@/components/UserTable';
+import UserTable from '@/components/adminComponents/UserTable';
 import axios from 'axios'
 import React from 'react'
 
@@ -14,12 +14,12 @@ async function page() {
 
   if (data) {
     return (
-      <UserTable data={data} heading='Enterprises' />
+      <UserTable data={data} heading='Users' />
     )
   } else {
     return (
       <>
-        error
+        No Enterprise Signed in
       </>
     )
   }

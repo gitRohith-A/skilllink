@@ -1,7 +1,7 @@
 import Profile from '@/components/dashboard/profile/Profile'
 import React from 'react'
 
-function page() {
+async function page() {
     return (
         <div>
             <Profile />

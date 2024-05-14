@@ -34,7 +34,7 @@ router.post('/register',
                 email: req.body.email,
                 name: req.body.name,
                 password: Secure_password,
-                isAdmin: req.body.occupation,
+                isAdmin: 'user',
             })
 
             success = 'true'

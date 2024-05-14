@@ -1,55 +1,71 @@
-import { MdDashboard } from "react-icons/md";
-import { RiArrowDownSLine } from "react-icons/ri";
+import { MdDashboard } from 'react-icons/md';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 export const sideNavData = [
     {
         label: 'Dashboard',
         icon: <MdDashboard />,
-        link: '/dashboard'
+        link: '/dashboard',
     },
-]
+];
 
 export const sideNavDataAdmin = [
     {
         label: 'Users',
         icon: <RiArrowDownSLine />,
-        link: '/admin/users-list',
-        subList: [
+            subList: [
             {
                 label: 'User List',
                 icon: <MdDashboard />,
-                link: '/admin/users-list'
+                link: '/admin/users',
             },
             {
                 label: 'Notifications',
                 icon: <MdDashboard />,
-                link: '/admin/users-list'
+                link: '/admin/users/notifications',
             },
-        ]
+        ],
     },
     {
-        label: 'Enterprises catogary',
+        label: 'Enterprises category',
+        link:'/admin/enterprises',
         icon: <RiArrowDownSLine />,
-        link: '/admin/enterprises-list',
         subList: [
             {
-                label: 'Enterprsies List',
+                label: 'Enterprises List',
                 icon: <MdDashboard />,
-                link: '/admin/enterprises-list'
+                link: '/admin/enterprises',
             },
             {
                 label: 'Notifications',
                 icon: <MdDashboard />,
-                link: '/admin/enterprises-list'
+                link: '/admin/enterprises/notifications',
             },
-        ]
+        ],
     },
+    {
+        label: 'Category',
+        icon: <RiArrowDownSLine />,
+        link: '/admin/category',
+        subList: [
+            {
+                label: 'Create Category',
+                icon: <MdDashboard />,
+                link: '/admin/category/create',
+            },
+            {
+                label: 'Category List',
+                icon: <MdDashboard />,
+                link: '/admin/category',
+            },
+        ], 
+    }
+];
 
-]
 export const sideNavDataEnterprises = [
     {
-        label: 'users',
+        label: 'Posts',
         icon: <MdDashboard />,
-        link: '/admin/users-list'
-    }
-]
+        link: '/enterprise/post-list',
+    },
+];

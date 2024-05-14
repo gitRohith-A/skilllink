@@ -1,9 +1,9 @@
 <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="SVG">
-<path id="Vector" d="M7.00977 18.8401V10.0901" stroke="#20AD96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M7.32227 27.5901C9.56593 27.5901 11.3848 25.7713 11.3848 23.5276C11.3848 21.2839 9.56593 19.4651 7.32227 19.4651C5.07861 19.4651 3.25977 21.2839 3.25977 23.5276C3.25977 25.7713 5.07861 27.5901 7.32227 27.5901Z" stroke="#20AD96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_3" d="M7.00977 10.0901C9.08084 10.0901 10.7598 8.41116 10.7598 6.34009C10.7598 4.26902 9.08084 2.59009 7.00977 2.59009C4.9387 2.59009 3.25977 4.26902 3.25977 6.34009C3.25977 8.41116 4.9387 10.0901 7.00977 10.0901Z" stroke="#20AD96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_4" d="M24.5098 10.0901C26.5809 10.0901 28.2598 8.41116 28.2598 6.34009C28.2598 4.26902 26.5809 2.59009 24.5098 2.59009C22.4387 2.59009 20.7598 4.26902 20.7598 6.34009C20.7598 8.41116 22.4387 10.0901 24.5098 10.0901Z" stroke="#20AD96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_5" d="M7.17188 18.8401C7.73438 16.6526 9.73436 15.0276 12.0969 15.0401L16.3844 15.0526C19.6594 15.0651 22.4469 12.9651 23.4719 10.04" stroke="#20AD96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M7.00977 18.8401V10.0901" stroke="#20AD96" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path id="Vector_2" d="M7.32227 27.5901C9.56593 27.5901 11.3848 25.7713 11.3848 23.5276C11.3848 21.2839 9.56593 19.4651 7.32227 19.4651C5.07861 19.4651 3.25977 21.2839 3.25977 23.5276C3.25977 25.7713 5.07861 27.5901 7.32227 27.5901Z" stroke="#20AD96" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path id="Vector_3" d="M7.00977 10.0901C9.08084 10.0901 10.7598 8.41116 10.7598 6.34009C10.7598 4.26902 9.08084 2.59009 7.00977 2.59009C4.9387 2.59009 3.25977 4.26902 3.25977 6.34009C3.25977 8.41116 4.9387 10.0901 7.00977 10.0901Z" stroke="#20AD96" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path id="Vector_4" d="M24.5098 10.0901C26.5809 10.0901 28.2598 8.41116 28.2598 6.34009C28.2598 4.26902 26.5809 2.59009 24.5098 2.59009C22.4387 2.59009 20.7598 4.26902 20.7598 6.34009C20.7598 8.41116 22.4387 10.0901 24.5098 10.0901Z" stroke="#20AD96" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path id="Vector_5" d="M7.17188 18.8401C7.73438 16.6526 9.73436 15.0276 12.0969 15.0401L16.3844 15.0526C19.6594 15.0651 22.4469 12.9651 23.4719 10.04" stroke="#20AD96" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 </g>
 </svg>
