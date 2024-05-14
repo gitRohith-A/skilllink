@@ -10,8 +10,9 @@ interface Category extends Document {
     slug: string;
     icon: string;
     services: Array<IService['_id']>;
-    metaTitle?: string; 
-    metaDescription?: string; 
+    posts: Array<ObjectId>;
+    metaTitle?: string;
+    metaDescription?: string;
 }
 
 const CategorySchema = new Schema<Category>({
@@ -32,8 +33,12 @@ const CategorySchema = new Schema<Category>({
         type: Schema.Types.ObjectId,
         ref: 'Service'
     }],
-    metaTitle: String, 
-    metaDescription: String 
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'post'
+    }],
+    metaTitle: String,
+    metaDescription: String
 }, {
     timestamps: true
 });

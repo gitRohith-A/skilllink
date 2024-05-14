@@ -2,10 +2,9 @@
 import Popup from '@/components/enterprise/Popup';
 import Loading from '@/components/others/loading';
 import React, { useEffect, useState } from 'react';
-import { FaEye } from "react-icons/fa";
-import { BiDetail } from "react-icons/bi";
-import { GoVerified } from "react-icons/go";
+import { FaEye, FaTrashAlt } from "react-icons/fa";
 import { UserType } from '../dashboard/profile/Profile';
+import Link from 'next/link';
 
 export interface EnterpriseData {
     _id: string;
@@ -76,13 +75,13 @@ function Page({ params }: { params: UserType }) {
         setData(newData);
     };
 
-
-    async function approveData(id: string) {
+    const clickDelet = async (data: { _id: string }) => {
+        console.log(data)
         try {
             setLoading(true);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/approve/${id}`, {
-                method: 'PATCH',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/posts/${data._id}`, {
+                method: 'DELETE',
             });
 
             if (!response.ok) {
@@ -98,17 +97,22 @@ function Page({ params }: { params: UserType }) {
         }
     }
 
-
-
     return (
         <div>
             <div className='bg-[#F1F1F1] relative overflow-x-auto shadow-md sm:rounded-lg'>
-                <h1 className='mx-5 my-4 text-2xl font-semibold'>Enterprises Posts</h1>
+                <div className="flex items-center justify-between">
+                    <h1 className='mx-5 my-4 text-2xl font-semibold'>Enterprises Posts</h1>
+
+                    <Link className='mx-5 my-4 text-sm border border-red-500 rounded-md p-3 font-semibold' href={'create-post'}>Create Post</Link>
+                </div>
                 <div className=" ">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead className="text-lg">
 
                             <tr className='border-b-2'>
+                                <th scope="col" className="px-6 py-3">
+                                    Sl No
+                                </th>
                                 <th scope="col" className="px-6 py-3">
                                     Description
                                 </th>
@@ -131,9 +135,12 @@ function Page({ params }: { params: UserType }) {
                         {loading ? <Loading />
                             :
                             <tbody>
-                                {data.map(item => (
+                                {data.map((item, index) => (
                                     <tr className="bg-[#F1F1F1] border-b" key={item._id}>
 
+                                        <td className="px-6 py-4 capitalize">
+                                            {index + 1}
+                                        </td>
                                         <td className="px-6 py-4 capitalize">
                                             {item.description}
                                         </td>
@@ -151,12 +158,10 @@ function Page({ params }: { params: UserType }) {
                                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => openPopup(item)}>
                                                 <FaEye size={20} />
                                             </button>
-                                            <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2" onClick={() => openPopup(item.user_id)}>
-                                                <BiDetail size={20} />
+                                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2" onClick={() => clickDelet(item)}>
+                                                <FaTrashAlt size={20} />
                                             </button>
-                                            <button onClick={() => approveData(item._id)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">
-                                                <GoVerified size={20} />
-                                            </button>
+
                                         </td>
                                     </tr>
                                 ))}

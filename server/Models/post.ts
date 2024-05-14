@@ -2,20 +2,25 @@ import mongoose, { Schema, Document, ObjectId } from 'mongoose';
 
 export interface IPost extends Document {
     enterprise?: ObjectId;
+    category?: ObjectId;
     description: string;
     price: string;
     discountPrice: string;
     priceDescription: string;
     duration: string;
-    image: string; // Change to hold a single image filename instead of an array
+    image: string; 
     rating: string;
     points: string[];
 }
 
 const postSchema: Schema = new Schema({
-    enterprise: {
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'enterprises'
+        ref: 'Enterprise'
+    },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
     },
     description: {
         type: String,
@@ -37,7 +42,7 @@ const postSchema: Schema = new Schema({
         type: String,
         required: true
     },
-    image: { // Change to accept a single image filename instead of an array
+    image: { 
         type: String,
         required: true
     },
