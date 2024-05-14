@@ -69,23 +69,23 @@ function QuotationFrom() {
                     </div>
                     <div className="flex flex-wrap  justify-start mt-4 gap-8 mb-6">
                         <button className=" flex items-center space-x-3 hover:text-blue-600 cursor-pointer">
-                            <MdMailOutline fill="blue" size={25} />
+                            <MdMailOutline className="text-blue-600" size={25} />
                             <p>Add Email</p>
                         </button>
                         <button className=" flex items-center space-x-3 hover:text-blue-600 cursor-pointer">
-                            <MdOutlineLocalPhone fill="blue" size={25} />
+                            <MdOutlineLocalPhone className="text-blue-600" size={25} />
                             <p>Add Phone Number</p>
                         </button>
                         <button className=" flex items-center space-x-3 hover:text-blue-600 cursor-pointer">
-                            <VscDiffAdded fill="blue" size={25} />
+                            <VscDiffAdded className="text-blue-600" size={25} />
                             <p>Add GST</p>
                         </button>
                         <button className=" flex items-center space-x-3 hover:text-blue-600 cursor-pointer">
-                            <VscDiffAdded fill="blue" size={25} />
+                            <VscDiffAdded className="text-blue-600" size={25} />
                             <p>Add PAN</p>
                         </button>
                         <button className=" flex items-center space-x-3 hover:text-blue-600 cursor-pointer">
-                            <VscDiffAdded fill="blue" size={25} />
+                            <VscDiffAdded className="text-blue-600" size={25} />
                             <p>Add Custom Fields</p>
                         </button>
 
