@@ -1,13 +1,16 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserType } from '../dashboard/profile/Profile';
+import { Category } from '@/app/admin/category/page';
+import { ObjectId } from 'mongoose';
 
 interface Post {
     description: string;
     priceDescription: string;
     price: string;
     duration: string;
+    category: string;
     discountPrice: string;
     image: File | null;
     rating: string;
@@ -15,8 +18,11 @@ interface Post {
 }
 
 const Page: React.FC<UserType> = ({ params }) => {
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
     const [formData, setFormData] = useState<Post>({
         description: '',
+        category: '',
         price: '',
         priceDescription: '',
         discountPrice: '',
@@ -26,16 +32,33 @@ const Page: React.FC<UserType> = ({ params }) => {
         points: ['', '', ''],
     });
 
-    console.log(params)
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/category`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch categories');
+                }
+                const data = await response.json();
+                setCategories(data.categories);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-    
+
         if (name.startsWith('point')) {
             const index = parseInt(name.replace('point', ''), 10) - 1;
             const newPoints = [...formData.points];
             newPoints[index] = value;
-    
+
             setFormData({
                 ...formData,
                 points: newPoints,
@@ -47,7 +70,8 @@ const Page: React.FC<UserType> = ({ params }) => {
             });
         }
     };
-    
+
+    console.log(formData.category)
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -62,16 +86,17 @@ const Page: React.FC<UserType> = ({ params }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        const { description, price, discountPrice, image, rating, points, priceDescription, duration } = formData;
+        const { description, price, discountPrice, image, rating, points, priceDescription, duration, category } = formData;
 
         if (!description || !price || !discountPrice || !image || !rating || points.some(point => !point.trim())) {
             alert('Please fill in all fields');
             return;
         }
 
+        setLoading(true)
         const formDataToSend = new FormData();
         formDataToSend.append('user_id', params.id);
+        formDataToSend.append('category', category);
         formDataToSend.append('description', description);
         formDataToSend.append('price', price);
         formDataToSend.append('discountPrice', discountPrice);
@@ -80,7 +105,7 @@ const Page: React.FC<UserType> = ({ params }) => {
         formDataToSend.append('rating', rating);
         formDataToSend.append('points', JSON.stringify(points));
         formDataToSend.append('image', image);
-
+        console.log(category)
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/api/posts`, {
                 method: 'POST',
@@ -92,27 +117,47 @@ const Page: React.FC<UserType> = ({ params }) => {
                     description: '',
                     price: '',
                     duration: '',
+                    category: '',
                     priceDescription: '',
                     discountPrice: '',
                     image: null,
                     rating: '',
                     points: ['', '', ''],
                 });
+                
+                window.location.href = '/enterprise/post-list'
+                setLoading(false);
             } else {
                 console.error('Error:', response.statusText);
                 alert('Failed to submit the form. Please try again later.');
+                setLoading(false);
             }
         } catch (error) {
             console.error('Error:', error);
             alert('An unexpected error occurred. Please try again later.');
+            setLoading(false);
         }
     };
-
 
     return (
         <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl font-bold mb-4">Create a New Post</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label htmlFor="category" className="block mb-1">Select Category:</label>
+                    <select
+                        id="category"
+                        name="category"
+                        className="w-full border border-gray-300 rounded-md p-2"
+                        value={formData.category}
+                        onChange={handleInputChange}
+                    >
+                        <option value="" disabled>Select Category</option>
+                        {categories.map(ele => (
+                            <option value={ele._id}>{ele.name}</option>
+                        ))}
+                    </select>
+                </div>
                 <div>
                     <label htmlFor="description" className="block mb-1">Description:</label>
                     <input

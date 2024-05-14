@@ -1,10 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { FormDataState } from './create/page';
 import { FaEdit } from 'react-icons/fa';
 import Link from 'next/link';
 
-interface Category {
+export interface Category {
   _id: string;
   name: string;
   slug: string;

@@ -4,6 +4,7 @@ import RejectedEnterpriseModel from '../Models/RejectEnterprise';
 import User from '../Models/User';
 import multer from 'multer';
 import Post from '../Models/post';
+import Category from '../Models/Category';
 
 const router = express.Router();
 
@@ -18,7 +19,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Create Enterprise
 router.post('/', upload.single('icon'), async (req: Request, res: Response) => {
     try {
         const enterpriseData: Enterprise = req.body as Enterprise;
@@ -166,13 +166,17 @@ router.post('/move/:id', async (req: Request, res: Response) => {
 
 router.post('/api/posts', upload.single('image'), async (req, res) => {
     try {
-        const { description, price, discountPrice, priceDescription, duration, rating, user_id } = req.body;
+        const { description, price, discountPrice, priceDescription, duration, rating, user_id, category } = req.body;
         let points = JSON.parse(req.body.points)
         let image = '';
 
         if (req.file) {
             image = '/public/' + req.file.filename;
         }
+
+        const enterprsieData = await EnterpriseModel.findOne({ user_id: user_id })
+
+        console.log(category)
 
         const post = new Post({
             description,
@@ -183,11 +187,13 @@ router.post('/api/posts', upload.single('image'), async (req, res) => {
             rating,
             points,
             image,
+            category,
+            user_id: enterprsieData ? enterprsieData._id : user_id
         });
-
-
         await post.save();
+
         await EnterpriseModel.findOneAndUpdate({ user_id: user_id }, { $push: { posts: post._id } })
+        await Category.findOneAndUpdate({ _id: category }, { $push: { posts: post._id } })
 
         res.status(201).json({ message: 'Post created successfully' });
     } catch (error) {
@@ -251,7 +257,7 @@ router.patch('/posts/:postId', upload.single('image'), async (req, res) => {
 
 
 // Delete API
-router.delete('/api/posts/:postId', async (req, res) => {
+router.delete('/posts/:postId', async (req, res) => {
     const postId = req.params.postId;
     try {
         // Delete the post from the database
