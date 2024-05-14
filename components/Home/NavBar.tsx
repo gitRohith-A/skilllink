@@ -12,7 +12,7 @@ async function NavBar({ children }: { children: React.ReactNode }) {
     return (
         <React.Fragment>
 
-            <div className='bg-white'>
+            <div className='bg-white border-b-2 border-blue-100'>
                 <div className="container py-3 px-12">
                     <div className="columns-3 justify-between flex ">
 
