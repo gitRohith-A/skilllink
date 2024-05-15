@@ -3,15 +3,17 @@ import Post from '../Models/post';
 
 const router = express.Router();
 
-router.get('/:id', async (req, res) => {
+router.get('/:slug', async (req, res) => {
     try {
-        const data = await Post.findOne({ _id: req.params.id })
+        const data = await Post.findOne({ slug: req.params.slug })
             .populate('category', 'name')
-            .populate('user_id', 'icon enterpriseName websiteURL')
+            .populate('user_id', 'icon enterpriseName websiteURL additionalNotes')
 
         if (!data) {
             res.status(500).json({ success: false, message: 'Not found' })
+            return
         }
+
 
         res.status(200).json({ success: true, data })
     } catch (error: any) {

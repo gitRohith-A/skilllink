@@ -42,7 +42,7 @@ function ReviewList() {
         <div className="grid grid-cols-2 gap-[50px]  mt-20">
             {data.map(ele => (
 
-                <div className="">
+                <div className="" key={ele.name}>
                     <div className="flex space-x-3 items-center">
                         <Link href='/login' className="w-14 h-14 px-[10.76px] py-1 bg-blue-500 rounded-[100%] justify-center items-center inline-flex">
                             <div className="flex-col justify-start items-center inline-flex">

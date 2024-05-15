@@ -51,7 +51,6 @@ function Page({ params }: { params: UserType }) {
     function rejects() {
     }
 
-
     useEffect(() => {
         async function getData() {
             setLoading(true)
@@ -76,7 +75,6 @@ function Page({ params }: { params: UserType }) {
     };
 
     const clickDelet = async (data: { _id: string }) => {
-        console.log(data)
         try {
             setLoading(true);
 

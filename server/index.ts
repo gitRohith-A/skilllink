@@ -16,6 +16,7 @@ const port = process.env.PORT || 8000;
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));

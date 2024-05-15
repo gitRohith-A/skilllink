@@ -45,7 +45,8 @@ router.put('/:id', upload.single('icon'), async (req: Request, res: Response) =>
 // READ
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const categories = await Category.find().select('name slug _id')
+    const categories = await Category.find()
+      .select('name slug _id icon')
 
     res.json({ success: true, categories });
   } catch (error) {

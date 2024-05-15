@@ -49,7 +49,7 @@ function SearchandFilters() {
                 {filterData.map((item, index) => {
                     return (
 
-                        <li className='px-3  bg-black m-1 rounded-3xl text-white font-light hover:bg-prime hover:text-white'><p className='px-3 py-2 text-[10px]'>{item.title}</p></li>
+                        <li className='px-3  bg-black m-1 rounded-3xl text-white font-light hover:bg-prime hover:text-white' key={index}><p className='px-3 py-2 text-[10px]'>{item.title}</p></li>
 
                     )
                 })}

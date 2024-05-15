@@ -6,42 +6,8 @@ import img from '@/public/home/sercicesimg/servimg.png'
 import { FaStar } from "react-icons/fa6";
 import Link from 'next/link';
 import ServiceRytFilter from './Elements/ServiceRytFilter';
-import Loading from '../others/loading';
 import { ScaleLoader } from 'react-spinners';
 
-
-const carddata = [
-    {
-        id: 1,
-        profile: `R`,
-        title: `web development`,
-        description: `rLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy`,
-        tagname: `web development`,
-
-        price: `200`,
-        discprice: `250`
-
-    },
-    {
-        id: 2,
-        profile: `S`,
-        title: `web development`,
-        description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy`,
-        tagname: `web development`,
-        price: `200`,
-        discprice: `250`
-
-    },
-    {
-        id: 3,
-        profile: `S`,
-        title: `web development`,
-        description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy`,
-        tagname: ["web development", "web development", "web development"],
-        price: `200`,
-        discprice: `250`
-    },
-]
 function ServicesCard() {
     const [data, setData] = useState([{}])
     const [loading, setLoading] = useState(true)
@@ -65,18 +31,20 @@ function ServicesCard() {
         fetchPosts();
     }, []);
 
-    console.log(data)
-
     return (
         <div className='container py-3 px-12'>
-            {loading ? <ScaleLoader /> :
+            {loading ?
+                <div className="flex justify-center items-center h-[400px]">
+                    <ScaleLoader />
+                </div>
+                :
                 <div className="grid grid-cols-4 gap-4">
                     <div className="div col-span-3 space-y-4">
                         {data.map((item: any, index: any) => {
                             return (
-                                <div key={index} className="service-cards p-5 rounded-[15px] border border-indigo-100  items-center gap-5 inline-flex w-full ">
+                                <div key={item._id} className="service-cards p-5 rounded-[15px] border border-indigo-100  items-center gap-5 inline-flex w-full ">
                                     <div className="grid grid-cols-4 gap-6">
-                                        <Image src={img} alt='image' className='col-span-1' />
+                                        <Image src={process.env.NEXT_PUBLIC_SERVER_URL + item.image} alt='image' className='col-span-1' width={500} height={100} unoptimized />
                                         <div className="col-span-3 
                             flex-col justify-start items-start gap-1 inline-flex
                             ">
@@ -91,10 +59,10 @@ function ServicesCard() {
                                                         5/5 rated
                                                     </p>
                                                 </div>
-                                                <Link href={`http://${item.user_id.websiteURL}`} className="w-[33.52px] h-[32.33px] px-[10.76px] py-1 bg-blue-500 rounded-2xl justify-center items-center inline-flex">
+                                                <Link href={`http://${item.user_id.websiteURL}`} className=" px-[10.76px] py-1 justify-center items-center inline-flex">
                                                     <div className="pb-[0.34px] flex-col justify-start items-center inline-flex">
                                                         <div className="text-center text-white text-base font-bold font-['Arial'] uppercase leading-normal">
-                                                            <Image src={process.env.NEXT_PUBLIC_SERVER_URL + '/' + item.user_id.icon} alt='-' width={30} height={30} />
+                                                            <Image src={process.env.NEXT_PUBLIC_SERVER_URL + '/' + item.user_id.icon} alt='-' width={30} height={30} className='rounded-full' />
                                                         </div>
                                                     </div>
                                                 </Link>
@@ -116,7 +84,7 @@ function ServicesCard() {
                                             </div>
                                             <div className="flex justify-between  w-full items-center">
                                                 <p className='text-slate-800 text-xl font-bold '>
-                                                ₹ {item.price}
+                                                    ₹ {item.price}
                                                     <span className='text-zinc-600 line-through ml-3 text-sm font-normal '>
                                                         {item.discountPrice}
                                                     </span>
@@ -125,7 +93,7 @@ function ServicesCard() {
                                                     <button className=" px-4 py-2 rounded-md border-2 hover:drop-shadow-lg border-prime justify-center items-center gap-1 inline-flex">
                                                         <div className="text-blue-600 text-sm font-normal leading-normal">Get Quotation</div>
                                                     </button>
-                                                    <Link href='/service' className=" px-4 py-2 rounded-md border-2 hover:drop-shadow-lg bg-prime justify-center items-center gap-1 inline-flex">
+                                                    <Link href={`/posts/${item.slug}`} className=" px-4 py-2 rounded-md border-2 hover:drop-shadow-lg bg-prime justify-center items-center gap-1 inline-flex">
                                                         <div className="text-white text-sm font-normal leading-normal">More Info</div>
                                                     </Link>
                                                 </div>

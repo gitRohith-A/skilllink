@@ -166,7 +166,7 @@ router.post('/move/:id', async (req: Request, res: Response) => {
 
 router.post('/api/posts', upload.single('image'), async (req, res) => {
     try {
-        const { description, price, discountPrice, priceDescription, duration, rating, user_id, category } = req.body;
+        const { description, price, discountPrice, priceDescription, duration, rating, user_id, category, slug, title } = req.body;
         let points = JSON.parse(req.body.points)
         let image = '';
 
@@ -176,8 +176,6 @@ router.post('/api/posts', upload.single('image'), async (req, res) => {
 
         const enterprsieData = await EnterpriseModel.findOne({ user_id: user_id })
 
-        console.log(category)
-
         const post = new Post({
             description,
             price,
@@ -185,6 +183,8 @@ router.post('/api/posts', upload.single('image'), async (req, res) => {
             priceDescription,
             duration,
             rating,
+            title,
+            slug,
             points,
             image,
             category,
@@ -221,7 +221,7 @@ router.get('/posts/:id', async (req: Request, res: Response) => {
 router.patch('/posts/:postId', upload.single('image'), async (req, res) => {
     const postId = req.params.postId;
     try {
-        const { description, price, discountPrice, priceDescription, duration, rating } = req.body;
+        const { description, price, discountPrice, priceDescription, duration, rating, title, slug } = req.body;
         let image = '';
 
         if (req.file) {
@@ -229,6 +229,8 @@ router.patch('/posts/:postId', upload.single('image'), async (req, res) => {
         }
 
         const updatedPostData: any = {};
+        if (title) updatedPostData.title = title;
+        if (slug) updatedPostData.slug = slug;
         if (description) updatedPostData.description = description;
         if (price) updatedPostData.price = price;
         if (discountPrice) updatedPostData.discountPrice = discountPrice;
@@ -237,7 +239,6 @@ router.patch('/posts/:postId', upload.single('image'), async (req, res) => {
         if (rating) updatedPostData.rating = rating;
         if (image) updatedPostData.image = image;
 
-        // Update the post in the database if there are new fields
         if (Object.keys(updatedPostData).length === 0) {
             return res.status(400).json({ error: 'No fields to update' });
         }
@@ -256,7 +257,6 @@ router.patch('/posts/:postId', upload.single('image'), async (req, res) => {
 });
 
 
-// Delete API
 router.delete('/posts/:postId', async (req, res) => {
     const postId = req.params.postId;
     try {
