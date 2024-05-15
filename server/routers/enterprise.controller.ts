@@ -136,6 +136,8 @@ router.post('/move/:id', async (req: Request, res: Response) => {
             phoneNo: enterprise.phoneNo,
             gstNumber: enterprise.gstNumber,
             locationLink: enterprise.locationLink,
+            mapLink: enterprise.mapLink,
+            generalInfo: enterprise.generalInfo,
             emailAddress: enterprise.emailAddress,
             websiteURL: enterprise.websiteURL,
             contactPersonName: enterprise.contactPersonName,

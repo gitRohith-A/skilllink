@@ -2,8 +2,10 @@ import React from 'react'
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { FaStar } from "react-icons/fa6";
 import Link from 'next/link';
+import RenderStars from '@/components/others/RenderStars';
 
-function ServiceOfferedProfile({ data }: { data: any }) {
+
+async function ServiceOfferedProfile({ data }: { data: any }) {
     return (
         <div className='my-6 flex gap-6 items-center'>
             <Link href='/' className="bg-slate-400 w-fit h-fit px-4 py-2 rounded-full text-white font-bold text-lg">
@@ -19,11 +21,13 @@ function ServiceOfferedProfile({ data }: { data: any }) {
                 </div>
                 <div className='flex gap-6 items-center'>
                     <div className="flex items-center gap-3">
-                        <FaStar />
-                        <p className='text-zinc-700 text-base font-bold '>5
-                            <span className='text-zinc-500 text-base font-normal'>
-                                (363)
+                        <p className='text-zinc-700 text-base font-bold flex items-center'>
+                            <span className='me-2'>
+                                {data.rating}
                             </span>
+
+
+                            <RenderStars rating={parseInt(data.rating)} /> /  ({data.review.length})
                         </p>
                     </div>
                 </div>

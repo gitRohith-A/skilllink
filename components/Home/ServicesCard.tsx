@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa6";
 import Link from 'next/link';
 import ServiceRytFilter from './Elements/ServiceRytFilter';
 import { ScaleLoader } from 'react-spinners';
+import RenderStars from '../others/RenderStars';
 
 function ServicesCard() {
     const [data, setData] = useState([{}])
@@ -50,13 +51,9 @@ function ServicesCard() {
                             ">
                                             <div className="flex justify-between items-center w-full">
                                                 <div className="bg-bgclr py-2 px-4 flex w-fit rounded-lg space-x-1">
-                                                    <FaStar fill='#F79009' />
-                                                    <FaStar fill='#F79009' />
-                                                    <FaStar fill='#F79009' />
-                                                    <FaStar fill='#F79009' />
-                                                    <FaStar fill='#F79009' />
+                                                    <RenderStars rating={parseInt(item.rating)}/>
                                                     <p className='text-slate-600 text-xs font-semibold'>
-                                                        5/5 rated
+                                                        {item.rating}/5 rated
                                                     </p>
                                                 </div>
                                                 <Link href={`http://${item.user_id.websiteURL}`} className=" px-[10.76px] py-1 justify-center items-center inline-flex">

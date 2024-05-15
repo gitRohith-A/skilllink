@@ -5,13 +5,34 @@ import Reviews from '@/components/Home/Reviews'
 import ServicesCard from '@/components/Home/ServicesCard'
 import React from 'react'
 
-function page() {
+async function page() {
+
+    let data
+    let responseData
+
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/reviews`);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+
+        responseData = await response.json();
+        data = responseData.post
+    } catch (error) {
+        return (
+            <>
+                Error
+            </>
+        )
+    }
+
     return (
         <>
             <Ads />
             <Categories />
             <ServicesCard />
-            <Reviews />
+            <Reviews data={data} />
         </>
     )
 }

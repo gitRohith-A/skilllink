@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import Post from '../Models/post';
+import { populate } from 'dotenv';
 
 const router = express.Router();
 
@@ -7,7 +8,13 @@ router.get('/:slug', async (req, res) => {
     try {
         const data = await Post.findOne({ slug: req.params.slug })
             .populate('category', 'name')
-            .populate('user_id', 'icon enterpriseName websiteURL additionalNotes')
+            .populate('user_id', 'icon enterpriseName websiteURL additionalNotes review')
+            .populate({
+                path: 'review',
+                populate: {
+                    path: 'userId',
+                }
+            });
 
         if (!data) {
             res.status(500).json({ success: false, message: 'Not found' })
