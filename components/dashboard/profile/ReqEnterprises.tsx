@@ -109,8 +109,6 @@ function ReqEnterprises({ session }: { session: any }) {
 
       router.push('/user/profile')
 
-      console.log(formData)
-
       setFormData({});
     } catch (error) {
       setLoading(false)

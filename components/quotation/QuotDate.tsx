@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, ChangeEvent } from 'react';
 import { LuImagePlus } from "react-icons/lu";
-function QuotDate: React.FC = () => {
+
+const QuotDate = () => {
 
     // Function to generate a random alphanumeric string
     const generateRandomString = () => {

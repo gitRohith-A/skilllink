@@ -8,7 +8,7 @@ type FileNameCallback = (error: Error | null, filename: string) => void;
 // Multer configuration
 const storage = multer.diskStorage({
     destination: function (_req: ExpressRequest, _file: Express.Multer.File, cb: DestinationCallback) {
-        cb(null, 'public/uploads/');
+        cb(null, 'public/');
     },
     filename: function (_req: ExpressRequest, file: Express.Multer.File, cb: FileNameCallback) {
         cb(null, Date.now() + '-' + file.originalname);

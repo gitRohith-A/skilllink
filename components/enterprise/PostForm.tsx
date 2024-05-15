@@ -15,6 +15,8 @@ interface Post {
     image: File | null;
     rating: string;
     points: string[];
+    slug: string;
+    title: string;
 }
 
 const Page: React.FC<UserType> = ({ params }) => {
@@ -29,6 +31,8 @@ const Page: React.FC<UserType> = ({ params }) => {
         duration: '',
         image: null,
         rating: '',
+        title: '',
+        slug: '',
         points: ['', '', ''],
     });
 
@@ -71,8 +75,6 @@ const Page: React.FC<UserType> = ({ params }) => {
         }
     };
 
-    console.log(formData.category)
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files && files.length > 0) {
@@ -86,7 +88,7 @@ const Page: React.FC<UserType> = ({ params }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { description, price, discountPrice, image, rating, points, priceDescription, duration, category } = formData;
+        const { description, price, discountPrice, image, rating, points, priceDescription, duration, category, slug, title } = formData;
 
         if (!description || !price || !discountPrice || !image || !rating || points.some(point => !point.trim())) {
             alert('Please fill in all fields');
@@ -101,11 +103,13 @@ const Page: React.FC<UserType> = ({ params }) => {
         formDataToSend.append('price', price);
         formDataToSend.append('discountPrice', discountPrice);
         formDataToSend.append('priceDescription', priceDescription);
+        formDataToSend.append('title', title);
+        formDataToSend.append('slug', slug);
         formDataToSend.append('duration', duration);
         formDataToSend.append('rating', rating);
         formDataToSend.append('points', JSON.stringify(points));
         formDataToSend.append('image', image);
-        console.log(category)
+
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/api/posts`, {
                 method: 'POST',
@@ -120,11 +124,13 @@ const Page: React.FC<UserType> = ({ params }) => {
                     category: '',
                     priceDescription: '',
                     discountPrice: '',
+                    title: '',
+                    slug: '',
                     image: null,
                     rating: '',
                     points: ['', '', ''],
                 });
-                
+
                 window.location.href = '/enterprise/post-list'
                 setLoading(false);
             } else {
@@ -154,9 +160,31 @@ const Page: React.FC<UserType> = ({ params }) => {
                     >
                         <option value="" disabled>Select Category</option>
                         {categories.map(ele => (
-                            <option value={ele._id}>{ele.name}</option>
+                            <option key={ele._id} value={ele._id}>{ele.name}</option>
                         ))}
                     </select>
+                </div>
+                <div>
+                    <label htmlFor="title" className="block mb-1">Title :</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 rounded-md p-2"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="description" className="block mb-1">Slug :</label>
+                    <input
+                        type="text"
+                        id="slug"
+                        name="slug"
+                        value={formData.slug}
+                        onChange={handleInputChange}
+                        className="w-full border border-gray-300 rounded-md p-2"
+                    />
                 </div>
                 <div>
                     <label htmlFor="description" className="block mb-1">Description:</label>
