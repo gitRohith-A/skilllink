@@ -16,6 +16,8 @@ export interface Enterprise extends Document {
   address?: string;
   additionalNotes?: string;
   adminnote?: string;
+  generalInfo?: string;
+  mapLink?: string;
   posts?: Array<mongoose.Types.ObjectId>; // Modified type here
   approved?: boolean;
   user_id?: ObjectId;
@@ -31,6 +33,8 @@ const enterpriseSchema = new mongoose.Schema({
   emailAddress: { type: String },
   websiteURL: { type: String },
   contactPersonName: { type: String },
+  generalInfo: { type: String },
+  mapLink: { type: String },
   industryType: { type: String },
   numberOfEmployees: { type: Number },
   yearEstablished: { type: Number },

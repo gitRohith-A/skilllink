@@ -8,8 +8,9 @@ export interface IPost extends Document {
     discountPrice: string;
     priceDescription: string;
     duration: string;
-    image: string; 
+    image: string;
     rating: string;
+    review?: ObjectId[];
     points: string[];
 }
 
@@ -22,6 +23,10 @@ const postSchema: Schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     },
+    review: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
     description: {
         type: String,
     },
@@ -43,7 +48,7 @@ const postSchema: Schema = new Schema({
     duration: {
         type: String,
     },
-    image: { 
+    image: {
         type: String,
     },
     rating: {

@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa6";
 import ReviewList from './Elements/ReviewList';
 // import vid from '../../public/home/review/review.mp4'
 
-function Reviews() {
+function Reviews({ data }: { data?: any }) {
     return (
         <div className='container py-3 px-12 '>
             <h5 className='
@@ -126,7 +126,7 @@ function Reviews() {
                     Your browser does not support the video tag.
                 </video>
             </div >
-            <ReviewList />
+            <ReviewList data={data} />
         </div >
     )
 }

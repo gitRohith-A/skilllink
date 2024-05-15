@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
@@ -8,6 +9,7 @@ export interface IUser extends Document {
     isAdmin?: string;
     verifyEmail?: Date;
     image?: string,
+    review?: ObjectId[];
     about: string,
     backgrounImage?: String,
     location?: string,
@@ -24,8 +26,11 @@ export interface IUser extends Document {
 const UserSchema: Schema = new Schema({
     email: {
         type: String,
-        unique: true
     },
+    review: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
     name: String,
     password: String,
     date: {

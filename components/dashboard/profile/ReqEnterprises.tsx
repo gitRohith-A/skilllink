@@ -30,9 +30,11 @@ function ReqEnterprises({ session }: { session: any }) {
     { name: 'websiteURL', label: 'Website URL', type: 'url' },
     { name: 'contactPersonName', label: 'Contact Person Name', type: 'text' },
     { name: 'industryType', label: 'Industry Type', type: 'text' },
+    { name: 'mapLink', label: 'map Link', type: 'text' },
     { name: 'numberOfEmployees', label: 'Number of Employees', type: 'number' },
     { name: 'yearEstablished', label: 'Year Established', type: 'number' },
     { name: 'address', label: 'Address', type: 'text', textarea: true },
+    { name: 'generalInfo', label: 'General Information', type: 'text', textarea: true },
     { name: 'additionalNotes', label: 'Additional Notes', type: 'text', textarea: true },
     { name: 'icon', label: 'Icon', type: 'file' },
   ];

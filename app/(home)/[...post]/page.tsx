@@ -30,7 +30,7 @@ async function page({ params }: { params: Record<string, any> }) {
     return (
         <>
             {/* <ServiceNavCat /> */}
-            <ServiceMain responseData={responseData.data} />
+            <ServiceMain responseData={responseData.data} params={params} />
         </>
     )
 }
