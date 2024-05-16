@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation';
 import { TbCloudUpload } from "react-icons/tb";
 
 interface Category {
@@ -12,14 +12,11 @@ interface Category {
   metaDescription: string;
 }
 
-interface EditCategoryProps {
-  categories: Category[];
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
-}
-
-const EditCategory: React.FC<EditCategoryProps> = ({ categories, setCategories }) => {
+const EditCategory: React.FC = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
+
+  const [categories, setCategories] = useState<Category[]>([]); // State for categories
 
   const [formData, setFormData] = useState<Category>({
     _id: '',
@@ -86,6 +83,7 @@ const EditCategory: React.FC<EditCategoryProps> = ({ categories, setCategories }
         throw new Error('Failed to update category');
       }
 
+      // Assuming you want to update the categories state after submitting the form
       const updatedCategories = categories.map(category =>
         category._id === id ? formData : category
       );

@@ -14,7 +14,7 @@ interface SideNavItem {
 
 function SideNav({ user }: ProfileHeadProps) {
     const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
-    const sideNavDataMap = new Map<string, SideNavItem[]>([
+    const sideNavDataMap = new Map<string, any[]>([
         ['user', sideNavData],
         ['admin', sideNavDataAdmin],
         ['enterprises', sideNavDataEnterprises],

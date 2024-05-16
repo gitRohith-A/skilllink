@@ -43,7 +43,7 @@ async function fetchData(id: any): Promise<EnterpriseData[]> {
 
 
 
-function Page({ params }: { params: UserType }) {
+function Page({ params }: any) {
     const [data, setData] = useState<EnterpriseData[]>([]);
     const [loading, setLoading] = useState<boolean>(false)
     const [selectedEnterprise, setSelectedEnterprise] = useState<EnterpriseData | null>(null);

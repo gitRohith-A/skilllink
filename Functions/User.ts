@@ -12,14 +12,15 @@ export const getUserByEmail = async (email: string) => {
     }
 };
 
-
 export const editUser = async (id: string, formData: StringObject, files: FileState) => {
     try {
         const formDataToSend = new FormData();
 
         // Append form data fields to FormData object
         for (const key in formData) {
-            formDataToSend.append(key, formData[key]);
+            if (formData[key] !== undefined) {
+                formDataToSend.append(key, formData[key] as string);
+            }
         }
 
         if (files) {
@@ -43,4 +44,5 @@ export const editUser = async (id: string, formData: StringObject, files: FileSt
         throw error;
     }
 }
+
 

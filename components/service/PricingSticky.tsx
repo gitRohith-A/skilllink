@@ -46,7 +46,7 @@ function PricingSticky({ data }: { data: any }) {
                 <button className='w-full py-4 bg-black rounded flex-col justify-start items-center inline-flex'>
                     <div className="text-center text-white text-base font-bold  hover:text-blue-500">Request to order</div>
                 </button>
-                <Link href='/' className="flex justify-center pt-4  text-neutral-800 text-sm hover:text-blue-600">Quotation request</Link>
+                <Link href='/service/quotation' className="flex justify-center pt-4  text-neutral-800 text-sm hover:text-blue-600">Quotation request</Link>
             </div>
         </div>
     )

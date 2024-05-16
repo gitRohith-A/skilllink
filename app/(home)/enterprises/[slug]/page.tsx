@@ -12,9 +12,7 @@ async function page({ params }: { params: any }) {
     let responseData
 
     try {
-        response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/single/${params.slug}`, {
-            method: 'GET',
-        });
+        response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/single/${params.slug}`, { cache: 'no-store' });
 
         if (!response.ok) {
             throw new Error('Failed to fetch data');

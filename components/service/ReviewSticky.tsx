@@ -76,6 +76,7 @@ const ReviewSticky: React.FC<ReviewStickyProps> = ({ data, user, params }) => {
                             min="1"
                             max="5"
                             value={rating || ''}
+                            disabled={!user}
                             onChange={handleRatingChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Enter rating"
@@ -89,6 +90,7 @@ const ReviewSticky: React.FC<ReviewStickyProps> = ({ data, user, params }) => {
                             id="comment"
                             name="comment"
                             rows={4}
+                            disabled={!user}
                             value={comment}
                             onChange={handleCommentChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -97,9 +99,10 @@ const ReviewSticky: React.FC<ReviewStickyProps> = ({ data, user, params }) => {
                     </div>
                     <button
                         onClick={handleSubmit}
-                        className='w-full py-4 bg-black rounded flex-col justify-start items-center inline-flex'
+                        className='w-full py-4 bg-black rounded flex-col justify-start items-center inline-flex disabled:bg-blue-100 disabled:text-stone-600'
+                        disabled={!user}
                     >
-                        <div className="text-center text-white text-base font-bold hover:text-blue-500">Submit</div>
+                        <div className="text-center text-base text-gray-200 font-bold">{!user ? "Log in to add review" : ' Submit'}</div>
                     </button>
                 </div>
                 :

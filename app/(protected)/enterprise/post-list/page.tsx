@@ -6,7 +6,7 @@ async function page() {
     const session = await auth();
 
     return (
-        <PostList params={session.user} />
+        <PostList params={session?.user} />
     )
 }
 

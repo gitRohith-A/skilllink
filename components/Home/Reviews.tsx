@@ -9,12 +9,12 @@ import { px } from "framer-motion";
 
 function Reviews({ data }: { data?: any }) {
     return (
-        <div className="container py-3 px-12 ">
+        <div className="container flex py-3 px-12 ">
             <h5 className="text-zinc-700 text-xl font-bold leading-7 mb-5">
                 Reviews
             </h5>
 
-            <div className="grid grid-cols-3 items-start">
+            {/* <div className="grid grid-cols-3 items-start">
                 <div className="space-y-2    ">
                     <div className="flex gap-4 items-center mb-5">
                         <p className="text-zinc-700 text-base font-bold">
@@ -99,7 +99,7 @@ function Reviews({ data }: { data?: any }) {
                     </div>
                 </div>
                 <Image src={review} alt="rewiew" className="h-52 mx-auto" />
-            </div>
+            </div> */}
             <ReviewList data={data} />
         </div>
     );
