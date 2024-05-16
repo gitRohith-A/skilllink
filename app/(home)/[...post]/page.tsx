@@ -8,9 +8,7 @@ async function page({ params }: { params: Record<string, any> }) {
     let responseData
 
     try {
-        response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/post/${params.post[1]}`, {
-            method: 'GET',
-        });
+        response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/post/${params.post[1]}`,  { cache: 'no-store' });
 
         if (!response.ok) {
             throw new Error('Failed to fetch data');

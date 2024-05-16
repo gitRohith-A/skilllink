@@ -13,7 +13,7 @@ async function page() {
     const session = await auth();
 
     return (
-        <PostForm params={session.user as User} />
+        <PostForm params={session?.user } />
     );
 }
 

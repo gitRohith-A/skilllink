@@ -54,12 +54,12 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {Object.entries(data).map(([key, value]) => {
-                                            if (['_id', 'createdAt', 'updatedAt', '__v', 'user_id','category','review'].includes(key)) {
+                                            if (['_id', 'createdAt', 'updatedAt', '__v', 'user_id', 'category', 'review'].includes(key)) {
                                                 return null;
                                             } else if (key === 'icon') {
                                                 return (
                                                     <tr key={key}>
-                                                        <td className="px-6 py-4 whitespace-nowrap capitalizecd">{key}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap capitalize">{key}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${value}`} alt="Icon" className="w-10 h-10" />
                                                         </td>
@@ -68,29 +68,28 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                                             } else if (Array.isArray(value)) {
                                                 return (
                                                     <tr key={key}>
-                                                        <td className="px-6 py-4 whitespace-nowrap capitalizecd">{key}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap capitalize">{key}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <textarea
-                                                                value={(editedData[key] as string[])?.join('\n') || (value as string[]).join('\n')}
+                                                                value={(editedData[key as keyof EnterpriseData] as string[])?.join('\n') || (value as string[]).join('\n')}
                                                                 onChange={(e) => handleInputChange(key as keyof EnterpriseData, e.target.value.split('\n'))}
                                                             />
                                                         </td>
                                                     </tr>
                                                 );
                                             } else {
-                                                if (value)
-                                                    return (
-                                                        <tr key={key}>
-                                                            <td className="px-6 py-4 whitespace-nowrap capitalizecd">{key}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                                <input
-                                                                    type="text"
-                                                                    value={editedData[key] || value}
-                                                                    onChange={(e) => handleInputChange(key as keyof EnterpriseData, e.target.value)}
-                                                                />
-                                                            </td>
-                                                        </tr>
-                                                    );
+                                                return (
+                                                    <tr key={key}>
+                                                        <td className="px-6 py-4 whitespace-nowrap capitalize">{key}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">
+                                                            <input
+                                                                type="text"
+                                                                value={editedData[key as keyof EnterpriseData] as string || value as string}
+                                                                onChange={(e) => handleInputChange(key as keyof EnterpriseData, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                );
                                             }
                                         })}
                                     </tbody>

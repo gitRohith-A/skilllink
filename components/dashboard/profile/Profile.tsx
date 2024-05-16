@@ -8,6 +8,7 @@ import ModalPrototype from '@/components/others/Modal';
 
 export const revalidate = true
 
+// types.ts
 export interface UserType {
     [key: string]: any;
     email: string;
@@ -16,18 +17,25 @@ export interface UserType {
     date: Date;
     isAdmin?: string;
     verifyEmail?: Date;
-    image?: string | undefined,
-    aboutMe: string,
-    backgroundImage?: string | File,
-    location?: string,
-    dob: Date,
+    image?: string | undefined;
+    aboutMe: string;
+    backgroundImage?: string | File;
+    location?: string;
+    dob: Date;
+    role?: "user" | "enterprises" | "admin";
+    id?: string;
     boardingStatus?: number;
     categories?: string;
     occupation?: string;
     provider: string;
     otps?: string;
-}
-
+  }
+  
+  export interface Category {
+    _id: string;
+    name: string;
+  }
+  
 export interface ProfileHeadProps {
     user: UserType;
 }
@@ -40,9 +48,9 @@ const Profile: React.FC = async () => {
     if (user)
         return (
             <React.Fragment>
-                    <ProfileHead user={user} />
-                    <ProfileFields user={user} />
-                    <ModalPrototype user={user} />
+                <ProfileHead user={user} />
+                <ProfileFields user={user} />
+                <ModalPrototype user={user} />
             </React.Fragment>
         );
     else return null;

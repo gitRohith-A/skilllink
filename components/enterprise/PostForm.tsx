@@ -1,9 +1,7 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
-import { UserType } from '../dashboard/profile/Profile';
-import { Category } from '@/app/admin/category/page';
-import { ObjectId } from 'mongoose';
+import { Category, UserType } from '../dashboard/profile/Profile';
 
 interface Post {
     description: string;
@@ -19,7 +17,7 @@ interface Post {
     title: string;
 }
 
-const Page: React.FC<UserType> = ({ params }) => {
+const Page = ({ params }: any) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [formData, setFormData] = useState<Post>({
@@ -45,9 +43,9 @@ const Page: React.FC<UserType> = ({ params }) => {
                 }
                 const data = await response.json();
                 setCategories(data.categories);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching categories:', error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -95,9 +93,9 @@ const Page: React.FC<UserType> = ({ params }) => {
             return;
         }
 
-        setLoading(true)
+        setLoading(true);
         const formDataToSend = new FormData();
-        formDataToSend.append('user_id', params.id);
+        formDataToSend.append('user_id', params.id || '');
         formDataToSend.append('category', category);
         formDataToSend.append('description', description);
         formDataToSend.append('price', price);
@@ -113,7 +111,7 @@ const Page: React.FC<UserType> = ({ params }) => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/api/posts`, {
                 method: 'POST',
-                body: formDataToSend
+                body: formDataToSend,
             });
 
             if (response.ok) {
@@ -131,16 +129,15 @@ const Page: React.FC<UserType> = ({ params }) => {
                     points: ['', '', ''],
                 });
 
-                window.location.href = '/enterprise/post-list'
-                setLoading(false);
+                window.location.href = '/enterprise/post-list';
             } else {
                 console.error('Error:', response.statusText);
                 alert('Failed to submit the form. Please try again later.');
-                setLoading(false);
             }
         } catch (error) {
             console.error('Error:', error);
             alert('An unexpected error occurred. Please try again later.');
+        } finally {
             setLoading(false);
         }
     };
@@ -165,7 +162,7 @@ const Page: React.FC<UserType> = ({ params }) => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="title" className="block mb-1">Title :</label>
+                    <label htmlFor="title" className="block mb-1">Title:</label>
                     <input
                         type="text"
                         id="title"
@@ -176,7 +173,7 @@ const Page: React.FC<UserType> = ({ params }) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="description" className="block mb-1">Slug :</label>
+                    <label htmlFor="slug" className="block mb-1">Slug:</label>
                     <input
                         type="text"
                         id="slug"
@@ -242,12 +239,12 @@ const Page: React.FC<UserType> = ({ params }) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="images" className="block mb-1">Image:</label>
+                    <label htmlFor="image" className="block mb-1">Image:</label>
                     <input
                         type="file"
                         id="image"
                         name="image"
-                        accept="image/*" // Specify to accept only image files
+                        accept="image/*"
                         onChange={handleFileChange}
                         className="w-full border border-gray-300 rounded-md p-2"
                     />

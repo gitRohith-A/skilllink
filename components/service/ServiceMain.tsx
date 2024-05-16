@@ -7,7 +7,7 @@ import ReviewSticky from './ReviewSticky'
 import { auth } from '@/auth'
 import ReviewList from '../Home/Elements/ReviewList'
 
-async function ServiceBanner({ responseData, params }: { responseData: any, params: any }) {
+async function ServiceBanner({ responseData, params }: { responseData?: any, params?: any }) {
 
     const session: any = await auth()
     return (
@@ -21,7 +21,7 @@ async function ServiceBanner({ responseData, params }: { responseData: any, para
             </div>
             <div className="col-span-1 sticky top-2">
                 <PricingSticky data={responseData} />
-                <ReviewSticky data={responseData} user={session.user} params={params.post[1]} />
+                <ReviewSticky data={responseData} user={session?.user} params={params.post[1]} />
             </div>
         </div>
     )
