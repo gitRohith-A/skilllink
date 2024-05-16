@@ -4,7 +4,7 @@ import profile from '../../public/epprofile.jpg'
 import { FaStar, FaInstagram, FaFacebookF, FaLinkedinIn, FaXTwitter, FaYoutube } from 'react-icons/fa6'
 import { MdVerified } from "react-icons/md";
 import Link from 'next/link';
-import RenderStars from '../others/RenderStars';
+
 
 function profilebanner({ data }: { data: any }) {
     return (
