@@ -10,7 +10,7 @@ function Reviews({ data }: { data?: any }) {
             <h5 className='
             text-zinc-700 text-xl font-bold leading-7
             '>Reviews</h5>
-            <div className="flex justify-between items-center my-10">
+            {/* <div className="flex justify-between items-center my-10">
                 <p className='text-zinc-700 text-base font-bold'>
                     reviews for this Gig
                 </p>
@@ -125,7 +125,7 @@ function Reviews({ data }: { data?: any }) {
                     />
                     Your browser does not support the video tag.
                 </video>
-            </div >
+            </div > */}
             <ReviewList data={data} />
         </div >
     )

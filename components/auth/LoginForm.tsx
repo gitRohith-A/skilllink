@@ -9,6 +9,7 @@ import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import Image from 'next/image';
 import log from '../../public/home/log.svg'
+import { ScaleLoader, RingLoader } from 'react-spinners';
 interface LoginFormProps {
 
 }
@@ -16,6 +17,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = () => {
     const [data, setData] = useState({ email: '', password: '' });
     const [isPending, startTransition] = useTransition();
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
 
@@ -33,7 +35,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         e.preventDefault();
         setError("");
         setSuccess("");
-
+        setLoading(true)
         startTransition(() => {
             login(data)
                 .then((data) => {
@@ -46,7 +48,8 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                         setSuccess(data.success);
                     }
                 })
-                .catch(() => alert("Something went wrong"));
+                .catch(() => alert("Something went wrong"))
+                .finally(() => setLoading(false))
         });
     }
 
@@ -117,10 +120,11 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                                     <div className="mb-5">
                                         <button
                                             type="submit"
-                                            className="w-full cursor-pointer rounded-xl border border-primary bg-primary px-5 py-3 text-base font-medium bg-blue-600 text-white hover:bg-blue-500"
-                                            disabled={isPending}
+                                            className="w-full rounded-xl border border-primary bg-primary px-5 py-3 text-base font-medium bg-blue-600 text-white hover:bg-blue-500 disabled:bg-blue-200"
+                                            disabled={loading}
+
                                         >
-                                            Log In
+                                            {loading ? <RingLoader color='green' size={25} /> : " Log in "}
                                         </button>
                                     </div>
 

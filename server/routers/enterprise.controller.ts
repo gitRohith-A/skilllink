@@ -61,6 +61,20 @@ router.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/single/:slug', async (req: Request, res: Response) => {
+    try {
+        const enterprise = await EnterpriseModel.findOne({ slug: req.params.slug })
+            .populate('posts','-user_id -category -review -createdAt -updatedAt')
+
+        if (!enterprise) {
+            return res.status(404).json({ error: 'Enterprise not found' });
+        }
+        res.status(200).json(enterprise);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+}); 
+
 // Update Enterprise by ID
 router.put('/:id', upload.single('icon'), async (req: Request, res: Response) => {
     try {
@@ -136,7 +150,7 @@ router.post('/move/:id', async (req: Request, res: Response) => {
             phoneNo: enterprise.phoneNo,
             gstNumber: enterprise.gstNumber,
             locationLink: enterprise.locationLink,
-            mapLink: enterprise.mapLink,
+            slug: enterprise.slug,
             generalInfo: enterprise.generalInfo,
             emailAddress: enterprise.emailAddress,
             websiteURL: enterprise.websiteURL,

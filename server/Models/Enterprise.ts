@@ -17,7 +17,7 @@ export interface Enterprise extends Document {
   additionalNotes?: string;
   adminnote?: string;
   generalInfo?: string;
-  mapLink?: string;
+  slug?: string;
   posts?: Array<mongoose.Types.ObjectId>; // Modified type here
   approved?: boolean;
   user_id?: ObjectId;
@@ -34,14 +34,14 @@ const enterpriseSchema = new mongoose.Schema({
   websiteURL: { type: String },
   contactPersonName: { type: String },
   generalInfo: { type: String },
-  mapLink: { type: String },
+  slug: { type: String },
   industryType: { type: String },
   numberOfEmployees: { type: Number },
   yearEstablished: { type: Number },
   address: { type: String },
-  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'post' }], // Modified schema here
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'post' }],
   additionalNotes: { type: String },
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }], // Modified schema here
+  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   adminnote: { type: String },
   approved: { type: Boolean },
   user_id: {

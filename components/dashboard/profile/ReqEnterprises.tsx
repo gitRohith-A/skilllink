@@ -22,6 +22,7 @@ function ReqEnterprises({ session }: { session: any }) {
 
   const inputFields: InputField[] = [
     { name: 'enterpriseName', label: 'Enterprise Name', type: 'text' },
+    { name: 'slug', label: 'Slug', type: 'text' },
     { name: 'phoneNo', label: 'Phone No', type: 'tel' },
     { name: 'gstNumber', label: 'GST Number', type: 'text' },
     { name: 'locationLink', label: 'Location Link', type: 'text' },
@@ -30,7 +31,6 @@ function ReqEnterprises({ session }: { session: any }) {
     { name: 'websiteURL', label: 'Website URL', type: 'url' },
     { name: 'contactPersonName', label: 'Contact Person Name', type: 'text' },
     { name: 'industryType', label: 'Industry Type', type: 'text' },
-    { name: 'mapLink', label: 'map Link', type: 'text' },
     { name: 'numberOfEmployees', label: 'Number of Employees', type: 'number' },
     { name: 'yearEstablished', label: 'Year Established', type: 'number' },
     { name: 'address', label: 'Address', type: 'text', textarea: true },
@@ -38,7 +38,6 @@ function ReqEnterprises({ session }: { session: any }) {
     { name: 'additionalNotes', label: 'Additional Notes', type: 'text', textarea: true },
     { name: 'icon', label: 'Icon', type: 'file' },
   ];
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
