@@ -54,7 +54,7 @@ function Popup({ data, closePopup, updateData }: PopupProps) {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {Object.entries(data).map(([key, value]) => {
-                                            if (['_id', 'createdAt', 'updatedAt', '__v', 'user_id','category'].includes(key)) {
+                                            if (['_id', 'createdAt', 'updatedAt', '__v', 'user_id','category','review'].includes(key)) {
                                                 return null;
                                             } else if (key === 'icon') {
                                                 return (

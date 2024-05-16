@@ -34,11 +34,15 @@ function ServicesCard() {
 
     return (
         <div className='container py-3 px-12'>
-            {loading ?
+            {loading ? (
                 <div className="flex justify-center items-center h-[400px]">
                     <ScaleLoader />
                 </div>
-                :
+            ) : data.length === 0 ? (
+                <div className=" flex justify-center items-center h-[200px] text-center text-gray-600">
+                    No posts available.
+                </div>
+            ) : (
                 <div className="grid grid-cols-4 gap-4">
                     <div className="div col-span-3 space-y-4">
                         {data.map((item: any, index: any) => {
@@ -51,7 +55,7 @@ function ServicesCard() {
                             ">
                                             <div className="flex justify-between items-center w-full">
                                                 <div className="bg-bgclr py-2 px-4 flex w-fit rounded-lg space-x-1">
-                                                    <RenderStars rating={parseInt(item.rating)}/>
+                                                    <RenderStars rating={parseInt(item.rating)} />
                                                     <p className='text-slate-600 text-xs font-semibold'>
                                                         {item.rating}/5 rated
                                                     </p>
@@ -102,9 +106,8 @@ function ServicesCard() {
                         })}
                     </div>
                     <ServiceRytFilter />
-
                 </div>
-            }
+            )}
 
         </div>
     )

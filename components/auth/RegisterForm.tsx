@@ -9,6 +9,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import Image from 'next/image';
 import reg from '../../public/home/reg.svg'
+import { RingLoader } from 'react-spinners';
 interface RegisterFormProps { }
 
 const RegisterForm: React.FC<RegisterFormProps> = () => {
@@ -16,6 +17,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -31,13 +33,15 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         e.preventDefault();
         setError("");
         setSuccess("");
-
+        setLoading(true)
         startTransition(() => {
             register(data)
                 .then((data) => {
                     setError(data.error);
                     setSuccess(data.success);
-                });
+                })
+                .catch((e) => console.error(e))
+                .finally(() => setLoading(false))
         });
     }
 
@@ -77,8 +81,10 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
                                 <FormError message={error} />
                                 <FormSuccess message={success} />
                                 <div className="mb-5">
-                                    <button type="submit" className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium bg-blue-600 text-white hover:bg-blue-500" disabled={isPending}>
-                                        Create Account
+                                    <button type="submit" className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium bg-blue-600 text-white hover:bg-blue-500 disabled:bg-blue-200" disabled={loading}>
+
+                                        {loading ? <RingLoader color='green' size={25} /> : " Create Account "}
+
                                     </button>
                                 </div>
 
