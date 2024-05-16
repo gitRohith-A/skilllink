@@ -1,28 +1,24 @@
+import Image from 'next/image'
 import React from 'react'
+import image from '@/public/enterpriselist/epbanner.svg'
 
 function BanEnterpriseList() {
     return (
-        <section className="w-full px-8 text-gray-700 py-[5rem] bg-blue-50">
-            <div className="container grid justify-items-center ">
-                <div className=" my-5 px-5 py-1 bg-prime size-fit rounded-[3rem]">
-                    <p className='text-white '><small>
-                        Our Top Enterprise Listing
-                    </small></p>
-                </div>
-                <h1 className='my-5 text-6xl font-bold'>
-                    SkillLink <span className='text-prime'>Enterprise</span>
-                </h1>
-                <p className='my-5 '>
-                    Connect with skilled professionals effortlessly
+        <div className="items-center justify-between flex  overflow-x-hidden p-16 px-32 py-12 bg-blue-50 w-100">
+            <div className="pr-2 ">
+                <h1 className="text-[2.5rem] font-semibold text-blue-600 "><span className="block w-full ">Get a registerd as Enterprise</span> and growing your business!</h1>
+                <p className="py-4 text-zinc-600 text-[15px] font-normal   ">
+                    Empowering you to make better for better growth, We make business growth
                 </p>
-                <button className=" px-5 py-2 rounded-lg border border-prime border-opacity-50 text-prime hover:bg-prime hover:text-white" >
-                    Get Started
-                </button>
+                <div className="mt-4">
+                    <a href="#contact" className="px-5 py-3 text-lg tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Register Now</span> </a>
+                </div>
             </div>
-            <div className="div">
-                hello
+
+            <div className="pb-10 overflow-hidden md:p-10 lg:p-0 sm:pb-0">
+                <Image src={image} alt='image' />
             </div>
-        </section>
+        </div>
     )
 }
 
