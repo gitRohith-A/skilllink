@@ -48,6 +48,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/all', async (req, res) => {
+    try {
+        const query = req.query;
+
+        const enterprises = await EnterpriseModel.find({})
+            .select('enterpriseName generalInfo websiteURL slug icon')
+
+        res.status(200).json(enterprises);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Read Enterprise by ID
 router.get('/:id', async (req: Request, res: Response) => {
     try {
@@ -64,7 +77,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.get('/single/:slug', async (req: Request, res: Response) => {
     try {
         const enterprise = await EnterpriseModel.findOne({ slug: req.params.slug })
-            .populate('posts','-user_id -category -review -createdAt -updatedAt')
+            .populate('posts', '-user_id -category -review -createdAt -updatedAt')
 
         if (!enterprise) {
             return res.status(404).json({ error: 'Enterprise not found' });
@@ -73,7 +86,7 @@ router.get('/single/:slug', async (req: Request, res: Response) => {
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
-}); 
+});
 
 // Update Enterprise by ID
 router.put('/:id', upload.single('icon'), async (req: Request, res: Response) => {
