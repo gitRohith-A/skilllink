@@ -11,7 +11,7 @@ function profilebanner({ data }: { data: any }) {
         <div className=' p-6 border-b-2 border-blue-100'>
             <div className=" py-3 px-24  flex items-center justify-between  ">
                 <div className="flex items-center gap-6">
-                    <Image src={process.env.NEXT_PUBLIC_SERVER_URL + '/' + data.icon} alt='prifile image' className='h-auto w-52 rounded-full border-blue-600 border-4' width={50} height={50} />
+                    <Image src={process.env.NEXT_PUBLIC_SERVER_URL + '/' + data.icon} alt='prifile image' className='h-auto w-52 rounded-full border-blue-600 border-4' width={50} height={50} unoptimized />
                     <div className="space-y-3">
                         <div className="flex items-baseline gap-2">
                             <h1 className='text-black text-2xl font-extrabold  leading-9 '>
