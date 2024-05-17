@@ -14,20 +14,25 @@ async function NavBar({ children }: { children: React.ReactNode }) {
 
             <div className='bg-white border-b-2 border-blue-100'>
                 <div className="container py-3 px-12">
-                    <div className="columns-3 justify-between flex ">
+                    <div className=" justify-between items-center  flex ">
 
                         <Link href='/'>
-                            <p className='text-black text-lg font-bold self-center'>
+                            <p className='text-black text-lg font-bold self-center w-[195px]'>
                                 Skill<span className='text-prime'>
                                     Link
                                 </span>
                             </p>
                         </Link>
                         <div className="text-black  text-sm font-normal capitalize self-center">
-                            <Link href='/' className='px-3 text-sm  font-normal hover:text-prime'>Home</Link >
-                            <Link href='/enterprises' className='px-3 text-sm  font-normal hover:text-prime'>Enterprises</Link >
+                            <Link href='/' className='px-3 text-sm  font-medium hover:text-prime '>Home</Link >
+                            <Link href='/enterprises' className='px-3 text-sm  font-medium hover:text-prime '>Enterprises</Link >
+                            <Link href='/enterprises' className='px-3 text-sm  font-medium hover:text-prime '>Posts</Link >
+
                         </div>
-                        <div className="columns-2 flex items-center">
+                        <div className="columns-2 flex items-center gap-2">
+                            <Link href='/' className=' border-2 border-blue-600 px-3 py-1 rounded-full'>
+                                <p className='w-full'>Register As Enterprise</p>
+                            </Link>
                             {user ?
                                 <ProfileDropdown
                                     user={user}

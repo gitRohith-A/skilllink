@@ -130,7 +130,7 @@ function ReqEnterprises({ session }: { session: any }) {
                 {field.type === 'select' ? (
                   field.name === 'categories' ? (
                     <MultiSelect
-                      options={[category].map((category: any) => ({
+                      options={category.map((category: any) => ({
                         value: category._id,
                         label: category.name,
                       }))}

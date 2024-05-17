@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ScaleLoader } from 'react-spinners';
 import RenderStars from '../others/RenderStars';
+import { IoSearch } from "react-icons/io5";
 
 interface User {
     websiteURL: string;
@@ -59,14 +60,19 @@ const ServicesCard: React.FC = () => {
 
     return (
         <div className='container py-3 px-12'>
+<<<<<<< HEAD
+            <div className="flex items-center justify-center m-10 relative">
+=======
             <div className="flex items-center justify-center m-10">
-                <input 
-                    type="text" 
-                    className='rounded-full w-[50%]' 
-                    placeholder='Search....' 
+>>>>>>> 3bfbd0e785382217e7325ed695d6ef71de9dbcb5
+                <input
+                    type="text"
+                    className='rounded-full w-[50%]'
+                    placeholder='Search....'
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
                 />
+                <IoSearch className='absolute right-[22.5rem] text-blue-600' size={25} />
             </div>
 
             {loading ? (
@@ -95,7 +101,7 @@ const ServicesCard: React.FC = () => {
                                             <Link href={`http://${item.user_id.websiteURL}`} className="px-[10.76px] py-1 justify-center items-center inline-flex">
                                                 <div className="pb-[0.34px] flex-col justify-start items-center inline-flex">
                                                     <div className="text-center text-white text-base font-bold font-['Arial'] uppercase leading-normal">
-                                                        <Image src={process.env.NEXT_PUBLIC_SERVER_URL + '/' + item.user_id.icon} alt='-' width={30} height={30} className='rounded-full' />
+                                                        <Image src={process.env.NEXT_PUBLIC_SERVER_URL + '/' + item.user_id.icon} alt='-' width={30} height={30} className='rounded-full' unoptimized />
                                                     </div>
                                                 </div>
                                             </Link>
@@ -136,8 +142,8 @@ const ServicesCard: React.FC = () => {
                         ))}
                         {filteredData.length > visiblePosts && (
                             <div className="flex justify-center mt-4">
-                                <button 
-                                    onClick={handleLoadMore} 
+                                <button
+                                    onClick={handleLoadMore}
                                     className="px-6 py-2 rounded-md border-2 hover:drop-shadow-lg border-prime justify-center items-center gap-1 inline-flex">
                                     <div className="text-blue-600 text-sm font-normal leading-normal">Load More</div>
                                 </button>
