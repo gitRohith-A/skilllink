@@ -60,7 +60,11 @@ const ServicesCard: React.FC = () => {
 
     return (
         <div className='container py-3 px-12'>
+<<<<<<< HEAD
             <div className="flex items-center justify-center m-10 relative">
+=======
+            <div className="flex items-center justify-center m-10">
+>>>>>>> 3bfbd0e785382217e7325ed695d6ef71de9dbcb5
                 <input
                     type="text"
                     className='rounded-full w-[50%]'
