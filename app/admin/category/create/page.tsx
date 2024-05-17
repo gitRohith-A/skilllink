@@ -30,7 +30,6 @@ function CreateCategory() {
     setFormData({
       ...formData,
       [name]: value,
-      slug: slugValue
     });
   };
 
@@ -72,6 +71,7 @@ function CreateCategory() {
       if (!response.ok) {
         throw new Error('Failed to create category');
       }
+      router.push('/admin/category')
 
       setFormData({
         name: '',
@@ -84,7 +84,7 @@ function CreateCategory() {
       console.error('Error:', error);
     } finally {
       setLoading(false);
-      router.push('/category')
+      router.push('/admin/category')
     }
   };
 
