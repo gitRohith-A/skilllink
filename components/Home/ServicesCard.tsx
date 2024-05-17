@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ScaleLoader } from 'react-spinners';
 import RenderStars from '../others/RenderStars';
+import { IoSearch } from "react-icons/io5";
 
 interface User {
     websiteURL: string;
@@ -59,7 +60,7 @@ const ServicesCard: React.FC = () => {
 
     return (
         <div className='container py-3 px-12'>
-            <div className="flex items-center justify-center m-10">
+            <div className="flex items-center justify-center m-10 relative">
                 <input
                     type="text"
                     className='rounded-full w-[50%]'
@@ -67,6 +68,7 @@ const ServicesCard: React.FC = () => {
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
                 />
+                <IoSearch className='absolute right-[22.5rem] text-blue-600' size={25} />
             </div>
 
             {loading ? (
