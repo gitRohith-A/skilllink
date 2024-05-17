@@ -9,9 +9,7 @@ async function EnterpriseCard() {
     let data
 
     try {
-        response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/all`, {
-            method: 'GET',
-        });
+        response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/enterprise/all`, { cache: 'no-store' });
 
         if (!response.ok) {
             throw new Error('Failed to fetch data');
