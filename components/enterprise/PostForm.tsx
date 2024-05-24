@@ -263,7 +263,7 @@ const Page = ({ params }: any) => {
                 <div>
                     <label htmlFor="rating" className="block mb-1">Rating:</label>
                     <input
-                        type="text"
+                        type="number"
                         id="rating"
                         name="rating"
                         value={formData.rating}

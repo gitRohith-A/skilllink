@@ -26,6 +26,10 @@ const ModalPrototype: React.FC<ProfileHeadProps> = ({ user }) => {
     const [files, setFiles] = useState<FileState>(null);
 
     const handleChange = (key: string, value: string) => {
+        if (key === 'name' && /\d/.test(value)) {
+            alert('Name should not contain numbers.');
+            return;
+        }
         setFormData(prevState => ({
             ...prevState,
             [key]: value,

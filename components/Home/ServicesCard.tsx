@@ -6,10 +6,14 @@ import Link from 'next/link';
 import { ScaleLoader } from 'react-spinners';
 import RenderStars from '../others/RenderStars';
 import { IoSearch } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux';
+import Form from '../others/CtaForm';
+import { setForm } from '@/lib/features/formSlice';
 
 interface User {
     websiteURL: string;
     icon: string;
+    _id: string
 }
 
 interface Post {
@@ -30,7 +34,7 @@ const ServicesCard: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [visiblePosts, setVisiblePosts] = useState(3);
-
+    const dispatch = useDispatch()
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -124,10 +128,11 @@ const ServicesCard: React.FC = () => {
                                                 </span>
                                             </p>
                                             <div className="space-x-3">
-                                                <Link href={'/service/quotation'} className="px-4 py-2 rounded-md border-2 hover:drop-shadow-lg border-prime justify-center items-center gap-1 inline-flex">
-                                                    <div className="text-blue-600 text-sm font-normal leading-normal">Get Quotation</div>
-                                                </Link>
-                                                <Link href={`/posts/${item.slug}`} className="px-4 py-2 rounded-md border-2 hover:drop-shadow-lg bg-prime justify-center items-center gap-1 inline-flex">
+                                                <button className="px-4 py-2 rounded-md border-2 hover:drop-shadow-lg border-prime justify-center items-center gap-1 inline-flex">
+                                                    <div className="text-blue-600 text-sm font-normal leading-normal" onClick={() => dispatch(setForm({ userId: item.user_id._id, open: true }))}>Get Quotation</div>
+                                                </button>
+
+                                                <Link href={`/posts/${item.slug}?id=${item._id}`} className="px-4 py-2 rounded-md border-2 hover:drop-shadow-lg bg-prime justify-center items-center gap-1 inline-flex">
                                                     <div className="text-white text-sm font-normal leading-normal">More Info</div>
                                                 </Link>
                                             </div>
@@ -148,6 +153,7 @@ const ServicesCard: React.FC = () => {
                     </div>
                 </div>
             )}
+            <Form />
         </div>
     );
 }

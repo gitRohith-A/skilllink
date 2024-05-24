@@ -23,7 +23,7 @@ function ReqEnterprises({ session }: { session: any }) {
   const inputFields: InputField[] = [
     { name: 'enterpriseName', label: 'Enterprise Name', type: 'text' },
     { name: 'slug', label: 'Slug', type: 'text' },
-    { name: 'phoneNo', label: 'Phone No', type: 'tel' },
+    { name: 'phoneNo', label: 'Phone No', type: 'number' },
     { name: 'gstNumber', label: 'GST Number', type: 'text' },
     { name: 'locationLink', label: 'Location Link', type: 'text' },
     { name: 'emailAddress', label: 'Email Address', type: 'email' },
@@ -51,12 +51,19 @@ function ReqEnterprises({ session }: { session: any }) {
       newValue = value;
     }
 
+    // Check if the field is enterpriseName and contains numbers
+    if (name === 'enterpriseName' && /\d/.test(value)) {
+      alert('Enterprise name should not contain numbers.');
+      return; // Stop further execution
+    }
+
     const filteredFormData = Object.entries(formData)
       .filter(([key, value]) => value !== undefined)
       .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 
     setFormData({ ...filteredFormData, [name]: newValue });
   };
+
 
   useEffect(() => {
     fetchCategory()
@@ -81,6 +88,7 @@ function ReqEnterprises({ session }: { session: any }) {
 
   const handleSubmit = async () => {
     try {
+
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         if (key === 'categories' && typeof value === 'string') {

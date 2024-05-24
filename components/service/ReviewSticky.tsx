@@ -99,10 +99,10 @@ const ReviewSticky: React.FC<ReviewStickyProps> = ({ data, user, params }) => {
                     </div>
                     <button
                         onClick={handleSubmit}
-                        className='w-full py-4 bg-black rounded flex-col justify-start items-center inline-flex disabled:bg-blue-100 disabled:text-stone-600'
+                        className='w-full py-4 bg-black rounded flex-col justify-start items-center inline-flex disabled:bg-blue-300 disabled:text-stone-600'
                         disabled={!user}
                     >
-                        <div className="text-center text-base text-gray-200 font-bold">{!user ? "Log in to add review" : ' Submit'}</div>
+                        <div className="text-center text-base text-gray-100 font-bold">{!user ? "Log in to add review" : ' Submit'}</div>
                     </button>
                 </div>
                 :

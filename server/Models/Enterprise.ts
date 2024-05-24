@@ -40,6 +40,7 @@ const enterpriseSchema = new mongoose.Schema({
   yearEstablished: { type: Number },
   address: { type: String },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'post' }],
+  forms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'form' }],
   additionalNotes: { type: String },
   categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   adminnote: { type: String },
