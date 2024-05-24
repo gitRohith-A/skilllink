@@ -20,10 +20,13 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === 'name' && /\d/.test(e.target.value)) {
+            alert('name should not contain numbers.');
+        }
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const SocialMedia = (provider: 'google' | 'github') => {
+    const SocialMedia = (provider: 'google' | 'github') => {    
         signIn(provider, {
             callbackUrl: DEFAULT_LOGIN_REDIRECT
         })

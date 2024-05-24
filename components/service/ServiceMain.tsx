@@ -6,6 +6,8 @@ import AboutEnterprise from './AboutEnterprise'
 import ReviewSticky from './ReviewSticky'
 import { auth } from '@/auth'
 import ReviewList from '../Home/Elements/ReviewList'
+import Form from '../others/CtaForm'
+
 
 async function ServiceBanner({ responseData, params }: { responseData?: any, params?: any }) {
 
@@ -17,12 +19,13 @@ async function ServiceBanner({ responseData, params }: { responseData?: any, par
                 <ServiceOfferedProfile data={responseData} />
                 <ServicesPics data={responseData.image} />
                 <AboutEnterprise data={responseData.user_id} />
-                <ReviewList data={responseData.review}/>
+                <ReviewList data={responseData.review} />
             </div>
             <div className="col-span-1 sticky top-2">
                 <PricingSticky data={responseData} />
                 <ReviewSticky data={responseData} user={session?.user} params={params.post[1]} />
             </div>
+            <Form />
         </div>
     )
 }

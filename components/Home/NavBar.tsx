@@ -30,9 +30,9 @@ async function NavBar({ children }: { children: React.ReactNode }) {
 
                         </div>
                         <div className="columns-2 flex items-center gap-2">
-                            <Link href='/' className=' border-2 border-blue-600 px-3 py-1 rounded-full'>
+                            {/* <Link href='/' className=' border-2 border-blue-600 px-3 py-1 rounded-full'>
                                 <p className='w-full'>Register As Enterprise</p>
-                            </Link>
+                            </Link> */}
                             {user ?
                                 <ProfileDropdown
                                     user={user}
