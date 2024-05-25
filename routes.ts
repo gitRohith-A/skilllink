@@ -11,7 +11,6 @@ export const publicRoutes = [
     '/enterprises',
     '/enterprises/*',
     '/service/*',
-    '/service/quotation',
 ]
 
 /**

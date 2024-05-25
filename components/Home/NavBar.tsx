@@ -26,7 +26,7 @@ async function NavBar({ children }: { children: React.ReactNode }) {
                         <div className="text-black  text-sm font-normal capitalize self-center">
                             <Link href='/' className='px-3 text-sm  font-medium hover:text-prime '>Home</Link >
                             <Link href='/enterprises' className='px-3 text-sm  font-medium hover:text-prime '>Enterprises</Link >
-                            <Link href='/enterprises' className='px-3 text-sm  font-medium hover:text-prime '>Posts</Link >
+                            <Link href='/posts' className='px-3 text-sm  font-medium hover:text-prime '>Posts</Link >
 
                         </div>
                         <div className="columns-2 flex items-center gap-2">

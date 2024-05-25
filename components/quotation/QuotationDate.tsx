@@ -1,13 +1,15 @@
-'use client'
 import React, { useState, ChangeEvent } from 'react';
 import { LuImagePlus } from "react-icons/lu";
-import QuotationFrom from './QuotationFrom';
-import QuotationFor from './QuotationFor';
 
-const QuotationDate: React.FC = () => {
-    // Function to generate a random alphanumeric string
+interface QuotationDateProps {
+    state: any;
+    setState: React.Dispatch<any>;
+}
+
+const QuotationDate: React.FC<QuotationDateProps> = ({ state, setState }) => {
+
     const generateRandomString = () => {
-        const length = 8; // You can adjust the length of the string as needed
+        const length = 8;
         const characters = 'SKILLLINK0123456789';
         let result = '';
         for (let i = 0; i < length; i++) {
@@ -16,19 +18,35 @@ const QuotationDate: React.FC = () => {
         return result;
     };
 
-    // State to hold the generated random string
     const [quotationNo, setQuotationNo] = useState<string>(generateRandomString());
+    const [quotationDate, setQuotationDate] = useState<string>('');
+    const [validTillDate, setValidTillDate] = useState<string>('');
     const [filePreview, setFilePreview] = useState<string>('');
 
-    // Function to handle file selection
+    const handleQuotationNoChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setQuotationNo(event.target.value);
+        setState((prevState: any) => ({ ...prevState, quotationNo: event.target.value }));
+    };
+
+    const handleQuotationDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setQuotationDate(event.target.value);
+        setState((prevState: any) => ({ ...prevState, quotationDate: event.target.value }));
+        setState((prevState: any) => ({ ...prevState, quotationNo: quotationNo }));
+    };
+
+    const handleValidTillDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValidTillDate(event.target.value);
+        setState((prevState: any) => ({ ...prevState, validTillDate: event.target.value }));
+    };
+
     const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
         if (file) {
             displayPreview(file);
+            setState((prevState: any) => ({ ...prevState, file: file }));
         }
     };
 
-    // Function to display file preview
     const displayPreview = (file: File) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -50,7 +68,7 @@ const QuotationDate: React.FC = () => {
                             type="text"
                             name="quotationNo"
                             value={quotationNo}
-                            readOnly // Make the input field read-only
+                            onChange={handleQuotationNoChange}
                             className="block w-56 rounded-md border-0 py-1.5 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                             placeholder="ex: A00001"
                         />
@@ -60,7 +78,8 @@ const QuotationDate: React.FC = () => {
                         <input
                             type="date"
                             name="quotationDate"
-                            // Handle onChange event to set quotation date state
+                            value={quotationDate}
+                            onChange={handleQuotationDateChange}
                             className="w-56 rounded-md border-0  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 inline-block  justify-between "
                         />
                     </div>
@@ -69,7 +88,8 @@ const QuotationDate: React.FC = () => {
                         <input
                             type="date"
                             name="validTillDate"
-                            // Handle onChange event to set valid till date state
+                            value={validTillDate}
+                            onChange={handleValidTillDateChange}
                             className="w-56 rounded-md border-0  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 inline-block  justify-between "
                         />
                     </div>

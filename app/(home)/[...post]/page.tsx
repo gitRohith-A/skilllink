@@ -1,7 +1,9 @@
-import ServiceNavCat from '@/components/service/ServiceNavCat'
 import ServiceMain from '@/components/service/ServiceMain'
 
 import React from 'react'
+import ServicesCard from '@/components/Home/ServicesCard'
+import NavBar from '@/components/Home/NavBar'
+import Footer from '@/components/Home/Footer'
 
 async function page({ params }: { params: Record<string, any> }) {
     let response
@@ -20,10 +22,12 @@ async function page({ params }: { params: Record<string, any> }) {
 
         return (
             <>
-                Error
+                <ServicesCard />
+                <Footer />
             </>
         )
     }
+
 
     return (
         <>
