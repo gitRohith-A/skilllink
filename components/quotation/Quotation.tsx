@@ -37,8 +37,14 @@ function Quotation() {
     const params = useParams()
 
     useEffect(() => {
-        fetchData(params.slug)
+        async function getData() {
+            const data = await fetchData(params.slug)
+            setState(data)
+        }
+        getData()
     }, [])
+
+    console.log(state)
 
     return (
         <div className="flex justify-center my-12">
