@@ -68,4 +68,9 @@ export const sideNavDataEnterprises = [
         icon: <MdDashboard />,
         link: '/enterprise/post-list',
     },
+    {
+        label: 'Forms',
+        icon: <MdDashboard />,
+        link: '/enterprise/forms-list',
+    },
 ];

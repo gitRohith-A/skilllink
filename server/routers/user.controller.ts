@@ -18,6 +18,20 @@ router.get('/getUser/:email', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/:id', async (req: Request, res: Response) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id })
+            .select('-__v -verifyEmail -provider -password')
+
+        if (!user) {
+            return res.status(404).json({ error: "No user available with the Id" });
+        }
+        return res.status(200).json({ user });
+    } catch (error: any) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 // Endpoint to update user data with file upload
 router.put('/:id', upload.single('file'), async (req: Request, res: Response) => {
     const { id } = req.params;

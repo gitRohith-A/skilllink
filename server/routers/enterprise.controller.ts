@@ -246,6 +246,21 @@ router.get('/posts/:id', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/forms/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+        const data = await EnterpriseModel.findOne({ user_id: id }).populate('forms')
+        if (!data) {
+            return res.status(404).send('No Data')
+        }
+
+        res.json(data.forms);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Edit API
 router.patch('/posts/:postId', upload.single('image'), async (req, res) => {
     const postId = req.params.postId;

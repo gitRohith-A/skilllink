@@ -16,6 +16,7 @@ export interface Enterprise extends Document {
   address?: string;
   additionalNotes?: string;
   adminnote?: string;
+  forms?: Array<mongoose.Types.ObjectId>,
   generalInfo?: string;
   slug?: string;
   posts?: Array<mongoose.Types.ObjectId>; // Modified type here
