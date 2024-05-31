@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from 'react';
-import { LuImagePlus } from "react-icons/lu";
 
 interface QuotationDateProps {
     state: any;
@@ -10,7 +9,7 @@ const QuotationDate: React.FC<QuotationDateProps> = ({ state, setState }) => {
 
     const generateRandomString = () => {
         const length = 8;
-        const characters = 'SKILLLINK0123456789';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
         for (let i = 0; i < length; i++) {
             result += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -21,7 +20,6 @@ const QuotationDate: React.FC<QuotationDateProps> = ({ state, setState }) => {
     const [quotationNo, setQuotationNo] = useState<string>(generateRandomString());
     const [quotationDate, setQuotationDate] = useState<string>('');
     const [validTillDate, setValidTillDate] = useState<string>('');
-    const [filePreview, setFilePreview] = useState<string>('');
 
     const handleQuotationNoChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuotationNo(event.target.value);
@@ -37,24 +35,6 @@ const QuotationDate: React.FC<QuotationDateProps> = ({ state, setState }) => {
     const handleValidTillDateChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValidTillDate(event.target.value);
         setState((prevState: any) => ({ ...prevState, validTillDate: event.target.value }));
-    };
-
-    const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files && event.target.files[0];
-        if (file) {
-            displayPreview(file);
-            setState((prevState: any) => ({ ...prevState, file: file }));
-        }
-    };
-
-    const displayPreview = (file: File) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            if (typeof reader.result === 'string') {
-                setFilePreview(reader.result);
-            }
-        };
     };
 
     return (
@@ -94,30 +74,13 @@ const QuotationDate: React.FC<QuotationDateProps> = ({ state, setState }) => {
                         />
                     </div>
                 </div>
-                <div className="col-span-3 w-full  inline-flex justify-end">
+                {/* <div className="col-span-3 w-full  inline-flex justify-end">
                     <div className=" relative border-2 border-gray-300 border-dashed rounded-lg p-6 w-fit bg-slate-50" id="dropzone" >
-                        <input type="file" className="absolute inset-0 w-full  opacity-0 z-50 cursor-pointer drop" onChange={handleFileSelect} />
-                        <div className="flex justify-between items-center ">
-                            <div className="text-center  mx-6">
-                                <LuImagePlus size={30} className='mx-auto text-blue-600' />
-                                <h3 className="mt-2 text-sm font-medium text-gray-900">
-                                    <label htmlFor="file-upload" className="relative cursor-pointer">
-                                        <span>Add Business Logo</span>
-                                        <br />
-
-                                        <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                                    </label>
-                                </h3>
-                                <p className="mt-1 text-xs text-gray-500">
-                                    Drag & Drop or browse to upload
-                                    <br />
-                                    PNG, JPG, GIF up to 800kb
-                                </p>
-                            </div>
-                            {filePreview && <img src={filePreview} className=" max-h-32 " alt="Preview" />}
+                        <div className="flex justify-center items-center ">
+                            {state && <img src={`${process.env.NEXT_PUBLIC_SERVER_URL}/${state.icon}`} height={50} width={50} className=" max-h-32 " alt="Preview" />}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

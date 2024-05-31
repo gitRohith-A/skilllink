@@ -13,7 +13,7 @@ router.get('/get-all-users', async (req: Request, res: Response) => {
         if (type) {
             query.type = type;
         }
-        
+
         if (isAdmin) {
             query.isAdmin = isAdmin;
         }
@@ -87,6 +87,56 @@ router.put('/:id', upload.single('file'), async (req: Request, res: Response) =>
 });
 
 
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+
+
+// Endpoint to handle sending PDF to client
+router.post('/send-pdf', async (req, res) => {
+    const { email, pdfData } = req.body;
+
+    // Create Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'mshuheb8@gmail.com',
+            pass: 'xcjnvkzkzibwoghd'
+        }
+    });
+
+    // Mail options
+    const mailOptions = {
+        from: 'mshuheb8@gmail.com',
+        to: email,
+        subject: 'Quotation PDF',
+        text: 'Please find attached the quotation PDF.',
+        attachments: [
+            {
+                filename: 'quotation.pdf',
+                content: pdfData,
+                encoding: 'base64'
+            }
+        ]
+    };
+
+    try {
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        // Store PDF copy
+        const date = new Date();
+        const fileName = `quotation_${date.getTime()}.pdf`;
+        fs.writeFileSync(fileName, Buffer.from(pdfData, 'base64'));
+
+        res.status(200).json({ message: 'Email sent and PDF stored successfully!' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ error: 'Failed to send email.' });
+    }
+});
+
+module.exports = router;
 
 
 
